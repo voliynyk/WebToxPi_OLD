@@ -57,11 +57,11 @@ public class ServicesREST
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Groups> getGroupsByWeight(@PathParam("weightid") String weightid)
 	{
-		List<OutViewComponent> returnValue = new ArrayList<OutViewComponent>();
+		List<Groups> returnValue = new ArrayList<Groups>();
 		try
 		{
 			//int id = Integer.parseInt(weightid);
-			returnValue = DataManager.getInstance().getGroups(weightid);
+			returnValue = DataManager.getGroups(weightid);
 		}
 		catch (Exception e)
 		{

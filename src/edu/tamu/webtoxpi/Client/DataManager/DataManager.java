@@ -323,7 +323,7 @@ public class DataManager
 				
 			for (Components component : (List<Components>)DAOManager.getInstance().getComponentDAO().findAll(Components.class))
 			{
-				Orders order = DAOManager.getInstance().getOrderDAO().findExistOrCreateNewOrder(Auth.getCurrentUser(), "", chemicalSource, casrn, chemical);
+				Orders order = DAOManager.getInstance().getOrderDAO().findExistOrCreateNewOrder(Auth.getCurrentUser(), "", "", chemicalSource, casrn, chemical);
 				DAOManager.getInstance().getResultDAO().findExistOrCreateNewResult(order, component, null);
 			}
 			HibernateUtil.commitTransaction();
