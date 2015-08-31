@@ -6,14 +6,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Edit Results</title>
+
+<script type="text/javascript" src="/WebToxPi/External/shieldui/js/jquery-1.11.1.min.js"></script>
 
 <link rel="stylesheet" type="text/css" href="/WebToxPi/External/bootstrap3/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="/WebToxPi/External/font-awesome/css/font-awesome.min.css" />
 <script type="text/javascript" src="/WebToxPi/External/bootstrap3/js/bootstrap.min.js"></script>
 
 <link rel="stylesheet" type="text/css" href="/WebToxPi/js/all.min.css" />
-<script type="text/javascript" src="/WebToxPi/js/jquery-1.10.2.min.js"></script>
+
 <script type="text/javascript" src="/WebToxPi/External/shieldui/js/shieldui-all.min.js"></script>
 
 <script type="text/javascript" src="/WebToxPi/js/TableExport/tableExport.min.js"></script>

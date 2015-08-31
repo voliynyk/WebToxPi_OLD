@@ -6,13 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>WebToxPi</title>
 
-    <!-- Bootstrap -->
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/WebToxPi/External/bootstrap3/css/bootstrap.min.css" />
+
+    <link rel="stylesheet" href="/WebToxPi/External/bootstrap3/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="/WebToxPi/External/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" href="css/mainpage.css">
+
+  <script src="http://imsky.github.io/holder/holder.js"></script>
+  
+  <script type="text/javascript" src="/WebToxPi/js/jquery-1.10.2.min.js"></script>
+  <script type="text/javascript" src="/WebToxPi/External/bootstrap3/js/bootstrap.min.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -28,15 +31,12 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-4">
-            <a class="logo" href="Index.html"></a>>
-
- 
-  
+            <a class="logo" href="/WebToxPi/"></a>>
           </div>
           <div class="col-sm-8 text-right hidden-xs">
             <ul class="list-inline circle-icons">
-              <li><a href="//stackoverflow.com"><span class="contact">contact</span></a></li>
-              <li><a href="http://stackoverflow.com"><span class="about"></span>about</a></li>
+              <li><a href="ContactUsForm.jsp"><span class="contact">Contact</span></a></li>
+              <li><a href="http://stackoverflow.com"><span class="about"></span>About</a></li>
               
             </ul>
           </div>
@@ -44,14 +44,83 @@
       </div>
     </div>
     
-        <div class="banner">
+      <div class="banner">
       <div class="container">
         <div class="banner-contentarea">
           <div class="banner-content text-center text-white">
             <h1>ToxPi</h1>
             <p></p>
-            <p><a href="GeneralPage.jsp" class="btn btn-theme">Import CSV</a> 
-            <a href="TempPage.html" class="btn btn-theme">Export...</a></p>
+
+	            <a href="#" data-toggle="modal" data-target="#ImportModal" class="btn btn-theme">Import</a>
+				<div class="modal fade" id="ImportModal" role="dialog">
+			    <div class="modal-dialog">
+			      <div class="modal-content">
+			        <div class="modal-header">
+			          <button type="button" class="close" data-dismiss="modal">&times;</button>
+			          <h4 class="modal-title">Import results from csv file</h4>
+			        </div>
+			        <div class="modal-body">
+						<form action="rest/file/upload" method="post" enctype="multipart/form-data">
+							<p>Select a file :<input type="file" name="file" size="45" /></p>
+							<input type="submit" value="Upload It" />
+						</form>
+			        </div>
+			        <div class="modal-footer">
+			          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			        </div>
+			      </div>
+			      
+			    </div>
+			  </div>
+
+	           
+	            <a href="ViewResults.jsp" class="btn btn-theme">View Results</a> 
+	            
+	        <a href="#" data-toggle="modal" data-target="#SearchResultsModal" class="btn btn-theme">Edit Results</a>
+        	<div class="modal fade" id="SearchResultsModal" role="dialog">
+		    <div class="modal-dialog modal-lg">
+		    
+		      <!-- Modal content-->
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		          <h4 class="modal-title">Search results:</h4>
+		        </div>
+				<div class="container">
+				  <form action="SearchResultsServlet" role="form">
+				    <div class="form-group">
+				      <label for="casrn" >CAS Registry Number</label>
+				      <div class="form-group">
+				        <input type="text" class="form-control" id="casrn" name="casrn" placeholder="CAS Registry Number">
+				      </div>
+				    </div>
+				
+				    <div class="form-group">
+				      <label for="chemical">Chemical Name</label>
+				      <div class="form-group">
+				        <input type="text" class="form-control" id="chemical" name="chemical" placeholder="Chemical Name">
+				      </div>
+				    </div>
+				
+				    <div class="form-group">
+				      <label for="component">Component Name</label>
+				      <div class="form-group">
+				        <input type="text" class="form-control" id="component" name="component" placeholder="Component Name">
+				      </div>
+				    </div>
+					<div class="modal-footer">
+			        	<button type="submit" class="btn btn-default btn-primary">Search</button>
+			        	<button type="button" class="btn" data-dismiss="modal">Close</button>
+		        	</div>
+				  </form>
+				</div>
+		      </div>
+		      
+		    </div>
+		  </div>
+	            
+	            <a href="TempPage.html" class="btn btn-theme">Export</a>
+            </p>
 <!-- <input type="button" id="OpenPopupButton" value="Open Modal Popup" onclick="openPopUpWithSize('EnterResults.jsp', 'Simple Modal Popup Example', 700, 1500);" /> -->
           </div>
         </div>
@@ -64,12 +133,5 @@
         <p class="4">&copy; Copyright 2015</p>
       </div>
     </footer>
-     
-   
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    <script src="http://imsky.github.io/holder/holder.js"></script>
   </body>
 </html>

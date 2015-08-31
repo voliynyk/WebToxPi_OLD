@@ -16,7 +16,6 @@
 
 <div class="container">
 
-<!-- Contact Form - START -->
 <div class="container">
     <div class="row">
         <div class="col-md-12">
