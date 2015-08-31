@@ -22,14 +22,8 @@ import edu.tamu.webtoxpi.Server.Models.Classes.Types;
 import edu.tamu.webtoxpi.Server.Models.Classes.Componentsources;
 import edu.tamu.webtoxpi.Server.Models.DAO.DAOManager;
 import edu.tamu.webtoxpi.Server.Models.DAO.Util.HibernateUtil;
-import edu.tamu.webtoxpi.Server.Outbound.OutData;
-import edu.tamu.webtoxpi.Server.Outbound.OutViewChemical;
-import edu.tamu.webtoxpi.Server.Outbound.OutViewComponent;
-import edu.tamu.webtoxpi.Server.Outbound.OutViewResult;
-import edu.tamu.webtoxpi.Server.Models.Classes.Groups;
+import edu.tamu.webtoxpi.Server.Outbound.*;
 
-
-import edu.tamu.webtoxpi.Server.Models.Classes.Componentsources;
 import edu.tamu.webtoxpi.Server.Security.Auth;
 
 public class DataManager
@@ -408,6 +402,72 @@ public class DataManager
 		}
 
 		return returnOrders;
+	}
+	
+	public List<OutViewSources> getAllSourcesForView()
+	{
+		List<OutViewSources> returnSources = new ArrayList<OutViewSources>();
+		try
+		{
+			HibernateUtil.beginTransaction();
+			List<Sources> sources = DAOManager.getInstance().getSourceDAO().findAll(Sources.class);
+
+			for (Sources source : sources)
+			{
+				returnSources.add(new OutViewSources(source.getId(), source.getCode()));
+			}
+
+		}
+		finally
+		{
+			HibernateUtil.rollbackTransaction();
+		}
+
+		return returnSources;
+	}
+	
+	public List<OutViewCASRN> getAllCASRNSForView()
+	{
+		List<OutViewCASRN> returnCASRNS = new ArrayList<OutViewCASRN>();
+		try
+		{
+			HibernateUtil.beginTransaction();
+			List<Casregistrynumbers> casrns = DAOManager.getInstance().getCasregistrynumberDAO().findAll(Casregistrynumbers.class);
+
+			for (Casregistrynumbers casrn : casrns)
+			{
+				returnCASRNS.add(new OutViewCASRN(casrn.getId(), casrn.getCode()));
+			}
+
+		}
+		finally
+		{
+			HibernateUtil.rollbackTransaction();
+		}
+
+		return returnCASRNS;
+	}
+	
+	public List<OutViewChemical> getAllChemicalsForView()
+	{
+		List<OutViewChemical> returnChemicals = new ArrayList<OutViewChemical>();
+		try
+		{
+			HibernateUtil.beginTransaction();
+			List<Chemicals> chemicals = DAOManager.getInstance().getCasregistrynumberDAO().findAll(Chemicals.class);
+
+			for (Chemicals chemical : chemicals)
+			{
+				returnChemicals.add(new OutViewChemical(chemical.getId(), chemical.getCode()));
+			}
+
+		}
+		finally
+		{
+			HibernateUtil.rollbackTransaction();
+		}
+
+		return returnChemicals;
 	}
 
 	public List<OutViewComponent> getComponentsForView(int orderId)

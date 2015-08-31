@@ -14,14 +14,40 @@ import edu.tamu.webtoxpi.Server.InBound.UpdateResult;
 import edu.tamu.webtoxpi.Server.Models.Classes.Groups;
 import edu.tamu.webtoxpi.Server.Models.Classes.Types;
 import edu.tamu.webtoxpi.Server.Models.DAO.DAOManager;
+import edu.tamu.webtoxpi.Server.Outbound.OutViewCASRN;
 import edu.tamu.webtoxpi.Server.Outbound.OutViewChemical;
 import edu.tamu.webtoxpi.Server.Outbound.OutViewComponent;
 import edu.tamu.webtoxpi.Server.Outbound.OutViewResult;
+import edu.tamu.webtoxpi.Server.Outbound.OutViewSources;
 
 @Path("/results")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ServicesREST
 {
+	@GET
+	@Path("/getallsources")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<OutViewSources> getAllSources()
+	{
+		return DataManager.getInstance().getAllSourcesForView();
+	}
+	
+	@GET
+	@Path("/getallcasrns")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<OutViewCASRN> getAllCASRNs()
+	{
+		return DataManager.getInstance().getAllCASRNSForView();
+	}
+	
+	@GET
+	@Path("/getallchemicals")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<OutViewChemical> getAllChemicals()
+	{
+		return DataManager.getInstance().getAllChemicalsForView();
+	}
+	
 	@GET
 	@Path("/getallorders")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -29,6 +55,8 @@ public class ServicesREST
 	{
 		return DataManager.getInstance().getAllOrdersForView();
 	}
+	
+
 	
 	@GET
 	@Path("/getcomponents/{orderid}")

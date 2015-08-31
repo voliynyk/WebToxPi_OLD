@@ -2,6 +2,7 @@ package edu.tamu.webtoxpi.Server.Outbound;
 
 public class OutViewChemical
 {
+	private int chemicalId;
 	private int orderId;
 	private String sourceCode;
 	private String casrnCode;
@@ -9,6 +10,12 @@ public class OutViewChemical
 	
 	public OutViewChemical()
 	{}
+	
+	public OutViewChemical(int chemicalId, String chemicalCode)
+	{
+		this.chemicalId = chemicalId;
+		this.chemicalCode = chemicalCode;
+	}
 	
 	public OutViewChemical(int orderId, String sourceCode, String casrnCode, String chemicalCode)
 	{
@@ -49,5 +56,15 @@ public class OutViewChemical
 	public void setChemicalCode(String chemicalCode)
 	{
 		this.chemicalCode = chemicalCode;
+	}
+
+	public int getChemicalId()
+	{
+		return chemicalId;
+	}
+
+	public void setChemicalId(int chemicalId)
+	{
+		this.chemicalId = chemicalId;
 	}
 }

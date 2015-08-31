@@ -132,8 +132,8 @@
   
 <div class="container">
   <div class="jumbotron">
-    <h1>My first Bootstrap website!</h1>      
-    <p>This page will grow as we add more and more components from Bootstrap...</p>      
+    <h1>!</h1>      
+    <p></p>      
   </div>
 </div>
 

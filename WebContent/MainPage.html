@@ -6,25 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>WebToxPi</title>
 
+
     <link rel="stylesheet" type="text/css" href="/WebToxPi/External/bootstrap3/css/bootstrap.min.css" />
 
     <link rel="stylesheet" href="/WebToxPi/External/bootstrap3/css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="/WebToxPi/External/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" href="css/mainpage.css">
-
-  <script src="http://imsky.github.io/holder/holder.js"></script>
+    
+	  <script type="text/javascript" src="/WebToxPi/js/jquery-1.10.2.min.js"></script>
+	  <script type="text/javascript" src="/WebToxPi/External/bootstrap3/js/bootstrap.min.js"></script>
+<!--   <script src="http://imsky.github.io/holder/holder.js"></script> -->
   
-  <script type="text/javascript" src="/WebToxPi/js/jquery-1.10.2.min.js"></script>
-  <script type="text/javascript" src="/WebToxPi/External/bootstrap3/js/bootstrap.min.js"></script>
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
   </head>
   <body style="overflow:hidden;">
+
   
       <div class="navigation">
     
@@ -44,40 +40,45 @@
       </div>
     </div>
     
-      <div class="banner">
+    
+
+      <div class="banner" >
       <div class="container">
         <div class="banner-contentarea">
           <div class="banner-content text-center text-white">
-            <h1>ToxPi</h1>
+           <h1>ToxPi</h1>
             <p></p>
 
-	            <a href="#" data-toggle="modal" data-target="#ImportModal" class="btn btn-theme">Import</a>
-				<div class="modal fade" id="ImportModal" role="dialog">
+
+
+ 	            <a href="#" data-toggle="modal" data-target="#ImportModal" class="btn btn-theme">Import</a>
+				<div class="modal fade" id="ImportModal" role="dialog" style = "color: black; font-size: 50%;">
 			    <div class="modal-dialog">
 			      <div class="modal-content">
 			        <div class="modal-header">
 			          <button type="button" class="close" data-dismiss="modal">&times;</button>
-			          <h4 class="modal-title">Import results from csv file</h4>
+			          <h4 class="modal-title" style="text-align: center;">Import results from csv file</h4> 
 			        </div>
 			        <div class="modal-body">
+			        
 						<form action="rest/file/upload" method="post" enctype="multipart/form-data">
-							<p>Select a file :<input type="file" name="file" size="45" /></p>
-							<input type="submit" value="Upload It" />
+							<label for="selectFile" style="text-align: left;">Select File:</label>
+							<input type="file" id="selectFile" name="file" size="80" style="text-align: left;"/>
+							<input type="submit" value="Upload" style="text-align: left;"/>
 						</form>
 			        </div>
 			        <div class="modal-footer">
 			          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			        </div>
 			      </div>
-			      
 			    </div>
-			  </div>
+			  </div> 
 
-	           
-	            <a href="ViewResults.jsp" class="btn btn-theme">View Results</a> 
+	        <a href="FindResults.jsp" class="btn btn-theme">Find Results (Demo)</a>  
+	        <a href="ViewResults.jsp" class="btn btn-theme">View Results</a> 
 	            
 	        <a href="#" data-toggle="modal" data-target="#SearchResultsModal" class="btn btn-theme">Edit Results</a>
-        	<div class="modal fade" id="SearchResultsModal" role="dialog">
+        	<div class="modal fade" id="SearchResultsModal" role="dialog" style = "color: black; font-size: 50%;">
 		    <div class="modal-dialog modal-lg">
 		    
 		      <!-- Modal content-->
@@ -133,5 +134,7 @@
         <p class="4">&copy; Copyright 2015</p>
       </div>
     </footer>
+    
+
   </body>
 </html>
