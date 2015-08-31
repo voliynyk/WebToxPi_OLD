@@ -43,7 +43,7 @@ public class DataTransformation
 					Casregistrynumbers currentCASRN = DAOManager.getInstance().getCasregistrynumberDAO().findExistOrCreateNewCASRN(substance.getCasrn());
 					Chemicals currentChemical = DAOManager.getInstance().getChemicalDAO().findExistOrCreateNewChemical(substance.getName());
 
-					Orders currentOrder = DAOManager.getInstance().getOrderDAO().findExistOrCreateNewOrder(Auth.getCurrentUser(), _fileData.getFileName(), currentSource, currentCASRN, currentChemical);
+					Orders currentOrder = DAOManager.getInstance().getOrderDAO().findExistOrCreateNewOrder(Auth.getCurrentUser(), _fileData.getFileName(), _fileData.getOriginalFileName(), currentSource, currentCASRN, currentChemical);
 
 					for (int sliceCount = 0; sliceCount < substance.getSlices().size(); sliceCount++)
 					{

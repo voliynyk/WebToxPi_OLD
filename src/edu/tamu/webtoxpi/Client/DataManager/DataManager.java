@@ -23,10 +23,40 @@ import edu.tamu.webtoxpi.Server.Models.Classes.Componentsources;
 import edu.tamu.webtoxpi.Server.Models.DAO.DAOManager;
 import edu.tamu.webtoxpi.Server.Models.DAO.Util.HibernateUtil;
 import edu.tamu.webtoxpi.Server.Outbound.OutData;
+import edu.tamu.webtoxpi.Server.Outbound.OutViewChemical;
+import edu.tamu.webtoxpi.Server.Outbound.OutViewComponent;
+import edu.tamu.webtoxpi.Server.Outbound.OutViewResult;
+import edu.tamu.webtoxpi.Server.Models.Classes.Groups;
+
+
+import edu.tamu.webtoxpi.Server.Models.Classes.Componentsources;
 import edu.tamu.webtoxpi.Server.Security.Auth;
 
 public class DataManager
 {
+	private static DataManager instance = null;
+	
+	private DataManager()
+	{
+	}
+
+	public static DataManager getInstance()
+	{
+		if (instance == null)
+		{
+			synchronized (DAOManager.class)
+			{
+				if (instance == null)
+				{
+					instance = new DataManager();
+				}
+			}
+		}
+		return instance;
+	}
+	
+	
+	
 	public static List<Results> getResultsByComponentCode(String code)
 	{
 		return DAOManager.getInstance().getResultDAO().findResultsByComponentCode(code);
@@ -115,11 +145,11 @@ public class DataManager
 				HashMap<Components, Results> components = outData.getResultsMap().get(order);
 				
 				JSONObject obj = new JSONObject();
-				//obj.put("orderid", order.getId());
+				obj.put("id", order.getId());
 				obj.put("reservedFieldSource", order.getSources().getCode());
 				obj.put("reservedFieldCASRN", order.getCasregistrynumbers().getCode());
 				obj.put("reservedFieldChemical", order.getChemicals().getCode());
-				for(Components currentComp : outData.getComponentsOrder())
+				for (Components currentComp : outData.getComponentsOrder())
 				{
 					String strValue = null;
 					Results result = components.get(currentComp);
@@ -305,4 +335,124 @@ public class DataManager
 		}
 		
 	}
+
+	public static List<Sources> getAllSources()
+	{
+		try
+		{
+			HibernateUtil.beginTransaction();
+			return DAOManager.getInstance().getSourceDAO().findAll(Sources.class);
+		}
+		finally
+		{
+			HibernateUtil.rollbackTransaction();
+		}
+
+	}
+
+	public static List<Casregistrynumbers> getAllCASRNs()
+	{
+		try
+		{
+			HibernateUtil.beginTransaction();
+			return DAOManager.getInstance().getCasregistrynumberDAO().findAll(Casregistrynumbers.class);
+		}
+		finally
+		{
+			HibernateUtil.rollbackTransaction();
+		}
+	}
+
+	public static List<Chemicals> getAllChemicals()
+	{
+		try
+		{
+			HibernateUtil.beginTransaction();
+			return DAOManager.getInstance().getChemicalDAO().findAll(Chemicals.class);
+		}
+		finally
+		{
+			HibernateUtil.rollbackTransaction();
+		}
+	}
+
+	public List<OutViewChemical> getAllOrdersForView()
+	{
+		List<OutViewChemical> returnOrders = new ArrayList<OutViewChemical>();
+		try
+		{
+			HibernateUtil.beginTransaction();
+			List<Orders> orders = DAOManager.getInstance().getOrderDAO().findAll(Orders.class);
+
+			for (Orders order : orders)
+			{
+				returnOrders.add(new OutViewChemical(order.getId(), order.getSources().getCode(), order.getCasregistrynumbers().getCode(), order.getChemicals().getCode()));
+			}
+
+		}
+		finally
+		{
+			HibernateUtil.rollbackTransaction();
+		}
+
+		return returnOrders;
+	}
+
+	public List<OutViewComponent> getComponentsForView(int orderId)
+	{
+		List<OutViewComponent> returnComponents = new ArrayList<OutViewComponent>();
+		try
+		{
+			HibernateUtil.beginTransaction();
+			Orders order = DAOManager.getInstance().getOrderDAO().findByID(Orders.class, orderId);
+			if (order != null)
+			{
+				for (Results result : order.getResultses())
+				{
+					// TODO get value based on Component unit
+					if (StringUtils.isNotBlank(result.getStrresult()))
+					{
+						Components component = result.getComponents();
+						returnComponents.add(new OutViewComponent(component.getId(), component.getUnits().getCode(), component.getCode(), component.getTypes().getCode(),
+								component.getTypes().getGroups().getCode(), component.getTypes().getGroups().getWeights().getCode()));
+					}
+				}
+			}
+
+		}
+		finally
+		{
+			HibernateUtil.rollbackTransaction();
+		}
+
+		return returnComponents;
+	}
+	
+	public List<OutViewResult> getResultsForView(int orderId, int componentId)
+	{
+		List<OutViewResult> returnResults = new ArrayList<OutViewResult>();
+		try
+		{
+			HibernateUtil.beginTransaction();
+			Results result = DAOManager.getInstance().getResultDAO().checkExistResult(orderId, componentId);
+			if (result != null)
+			{
+				// TODO get value based on Component unit
+				OutViewResult retRes = new OutViewResult(result.getId(), result.getStrresult(), "string", orderId, componentId);
+				retRes.setCasrnCode(result.getOrders().getCasregistrynumbers().getCode());
+				retRes.setComponentCode(result.getComponents().getCode());
+				retRes.setUnitCode(result.getComponents().getUnits().getCode());
+				returnResults.add(retRes);
+			}
+
+		}
+		finally
+		{
+			HibernateUtil.rollbackTransaction();
+		}
+
+		return returnResults;
+	}
+
+
 }

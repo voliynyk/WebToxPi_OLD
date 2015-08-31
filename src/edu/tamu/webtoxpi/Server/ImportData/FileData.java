@@ -11,13 +11,15 @@ public class FileData {
     private List<Substance> chemicals;
     private Map<String, Set<Component>> typeComponentsMap;
     private Map<String, Set<Component>> sourceComponentsMap;
+    private String originalFileName;
 
-    public FileData(String fileName, List<Substance> chemicals, List<Component> components,Map<String, Set<Component>> typeComponentsMap, Map<String, Set<Component>> sourceComponentsMap ) {
+    public FileData(String fileName, List<Substance> chemicals, List<Component> components,Map<String, Set<Component>> typeComponentsMap, Map<String, Set<Component>> sourceComponentsMap, String originalFileName) {
         this.fileName = fileName;
         this.chemicals = chemicals;
         this.components = components;
         this.typeComponentsMap = typeComponentsMap;
         this.sourceComponentsMap = sourceComponentsMap;
+        this.originalFileName = originalFileName;
     }
     
     public List<Component> getComponents() {
@@ -68,4 +70,11 @@ public class FileData {
         this.typeComponentsMap = typeComponentsMap;
     }
     
+    public String getOriginalFileName() {
+        return originalFileName;
+    }
+
+    public void setOriginalFileName(String originalFileName) {
+        this.originalFileName = originalFileName;
+    }
 }

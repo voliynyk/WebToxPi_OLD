@@ -27,7 +27,7 @@ public class FileProcessor
 		this.componentsList = new ArrayList<Component>();
 	}
 
-	public void readFile(String absolutePath, Map<String, FileData> fileDataMap) throws Exception
+	public void readFile(String absolutePath, Map<String, FileData> fileDataMap, String originalFileName) throws Exception
 	{
 		this.filePath = absolutePath;
 
@@ -120,7 +120,7 @@ public class FileProcessor
 				substance.setSlices(slicesList);
 			}
 
-			fileData = new FileData(absolutePath, chemicalsList, this.componentsList, this.typeComponentsMap, this.sourceComponentsMap);
+			fileData = new FileData(absolutePath, chemicalsList, this.componentsList, this.typeComponentsMap, this.sourceComponentsMap, originalFileName);
 
 		}
 		catch (Exception ex)

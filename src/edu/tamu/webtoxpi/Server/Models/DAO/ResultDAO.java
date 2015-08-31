@@ -96,7 +96,7 @@ public class ResultDAO extends GenericDAOImpl<Results, Integer> implements IResu
 		}
 		catch (Exception e)
 		{
-
+			System.out.println(e.getMessage());
 		}
 		
 		return result;
@@ -124,7 +124,6 @@ public class ResultDAO extends GenericDAOImpl<Results, Integer> implements IResu
 		return result;
 	}
 	
-	
 	public Results updateResult(UpdateResult inputResult)
 	{
 		Results result = null;
@@ -140,10 +139,16 @@ public class ResultDAO extends GenericDAOImpl<Results, Integer> implements IResu
 					if (component != null)
 					{
 						Results currentResult = checkExistResult(order.getId(), component.getId());
-						if (currentResult != null)
+						if (null == currentResult)
 						{
+							currentResult = new Results(0, component, order, Auth.getCurrentUser(), Auth.getCurrentDate());
 							currentResult.setStrresult(inputResult.getNewValue());
 							save(currentResult);
+						}
+						else
+						{
+							currentResult.setStrresult(inputResult.getNewValue());
+							merge(currentResult);
 						}
 					}
 				}
@@ -151,6 +156,7 @@ public class ResultDAO extends GenericDAOImpl<Results, Integer> implements IResu
 			}
 			catch (Exception e)
 			{
+				System.out.println(e.getMessage());
 				HibernateUtil.rollbackTransaction();
 			}
 		}

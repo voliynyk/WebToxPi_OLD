@@ -10,20 +10,20 @@ import edu.tamu.webtoxpi.Server.Security.Auth;
 public class ImportinfoDAO extends GenericDAOImpl<Importinfo, Integer> implements IImportInfoDAO
 {
 	
-	public Importinfo findExistOrCreateNewImport(String fileName)
+	public Importinfo findExistOrCreateNewImport(String originalFileName, String fileName)
 	{
 		Importinfo result = null;
-		if (StringUtils.isNotBlank(fileName))
+		if (StringUtils.isNotBlank(originalFileName))
 		{
 			List<Importinfo> importList = findAll(Importinfo.class);
 			for (Importinfo importInfo : importList)
 			{
-				if (fileName.equals(importInfo.getFilename()))
+				if (originalFileName.equals(importInfo.getFilename()))
 				{
 					return importInfo;
 				}
 			}
-			result = new Importinfo(0, Auth.getCurrentUser(), Auth.getCurrentDate(), "Note", fileName);
+			result = new Importinfo(0, Auth.getCurrentUser(), Auth.getCurrentDate(), "Note", originalFileName);
 			save(result);
 		}
 		return result;

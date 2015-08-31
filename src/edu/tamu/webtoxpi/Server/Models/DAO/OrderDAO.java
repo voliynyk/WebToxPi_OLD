@@ -40,7 +40,7 @@ public class OrderDAO extends GenericDAOImpl<Orders, Integer> implements IOrderD
 		return result;
 	}
 	
-	public Orders findExistOrCreateNewOrder(Users user, String fileName, Sources source, Casregistrynumbers casrne, Chemicals chemical)
+	public Orders findExistOrCreateNewOrder(Users user, String fileName, String originalFileName, Sources source, Casregistrynumbers casrne, Chemicals chemical)
 	{
 		Orders result = null;
 		if (user != null && source != null && casrne != null && chemical != null)
@@ -49,9 +49,9 @@ public class OrderDAO extends GenericDAOImpl<Orders, Integer> implements IOrderD
 			if (null == result)
 			{
 				result = new Orders(0, casrne, chemical, source, user, 0, Auth.getCurrentDate());
-				if (StringUtils.isNotBlank(fileName))
+				if (StringUtils.isNotBlank(originalFileName))
 				{
-					Importinfo importInfo = DAOManager.getInstance().getImportinfoDAO().findExistOrCreateNewImport(fileName);
+					Importinfo importInfo = DAOManager.getInstance().getImportinfoDAO().findExistOrCreateNewImport(originalFileName, fileName);
 				
 					if (importInfo != null)
 					{

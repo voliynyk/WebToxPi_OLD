@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.HashMap" %>
 <%@ page import="edu.tamu.webtoxpi.Server.Outbound.OutData" %>
-<%@ page import="edu.tamu.webtoxpi.Client.DataManager.DataManager" %>
 
 <html>
 <head>
@@ -89,7 +86,7 @@ function getShieldGridColumns(obj)
                 	{
             			resultStr += '{ field: ' + '"' + k + '", width: "200px", title: "Chemical", format: function(value) {return "<strong>" + value + "</strong>";} }, ';
                     }
-            		else
+            		else if (k !== "id")
                		{
            				resultStr += '{ field: ' + '"' + k + '", width: "100px", title: ' + '"' + k + '" }, ';
                		}
@@ -167,6 +164,7 @@ $(document).ready(function () {
             },
             edit: function(e)
             {
+            	//var selectedItemID = $("#grid").swidget().contentTable;
             	currentEditableRow = e.row;
             },
 	    	command: function (e) {

@@ -52,6 +52,24 @@ public class ServicesREST
 		return returnValue;
 	}
 	
+	@GET
+	@Path("/getgroups/{weightid}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Groups> getGroupsByWeight(@PathParam("weightid") String weightid)
+	{
+		List<OutViewComponent> returnValue = new ArrayList<OutViewComponent>();
+		try
+		{
+			//int id = Integer.parseInt(weightid);
+			returnValue = DataManager.getInstance().getGroups(weightid);
+		}
+		catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
+
+		return returnValue;		
+	}
 //	@GET
 //	@Path("/getgroups/{weightid}")
 //	@Produces(MediaType.APPLICATION_JSON)

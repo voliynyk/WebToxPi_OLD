@@ -51,6 +51,7 @@ public class UploadFileService
 		String uploadedFileLocation = userLocation + "\\" + fileName;
 		writeToFile(uploadedInputStream, uploadedFileLocation, fileDetail.getFileName());
 
+		//response.sendRedirect("Login.html");
 		return Response.status(200).build();
 
 	}
