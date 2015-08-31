@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+ <session-factory name="PostgreSQL">
+  <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+  <property name="hibernate.connection.password">postgres</property>
+  <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/toxpi</property>
+  <property name="hibernate.connection.username">postgres</property>
+  <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+  <property name="hibernate.current_session_context_class">thread</property>
+  <property name="hibernate.enable_lazy_load_no_trans">true</property>
+  <property name="hbm2ddl.auto">create</property>
+  <property name="hibernate.hbm2ddl.auto">update</property>
+  <property name="show_sql">false</property>
+  <mapping class="Casregistrynumbers"
+   package="edu.tamu.webtoxpi.Server.Models.Models" resource="edu/tamu/webtoxpi/Server/Models/Models/Casregistrynumbers.hbm.xml"/>
+  <mapping class="Chemicals"
+   package="edu.tamu.webtoxpi.Server.Models.Models" resource="edu/tamu/webtoxpi/Server/Models/Models/Chemicals.hbm.xml"/>
+  <mapping class="Components"
+   package="edu.tamu.webtoxpi.Server.Models.Models" resource="edu/tamu/webtoxpi/Server/Models/Models/Components.hbm.xml"/>
+  <mapping class="Componentsources"
+   package="edu.tamu.webtoxpi.Server.Models.Models" resource="edu/tamu/webtoxpi/Server/Models/Models/Componentsources.hbm.xml"/>
+  <mapping class="Groups"
+   package="edu.tamu.webtoxpi.Server.Models.Models" resource="edu/tamu/webtoxpi/Server/Models/Models/Groups.hbm.xml"/>
+  <mapping class="Notes"
+   package="edu.tamu.webtoxpi.Server.Models.Models" resource="edu/tamu/webtoxpi/Server/Models/Models/Notes.hbm.xml"/>
+  <mapping class="Orders"
+   package="edu.tamu.webtoxpi.Server.Models.Models" resource="edu/tamu/webtoxpi/Server/Models/Models/Orders.hbm.xml"/>
+  <mapping class="Results"
+   package="edu.tamu.webtoxpi.Server.Models.Models" resource="edu/tamu/webtoxpi/Server/Models/Models/Results.hbm.xml"/>
+  <mapping class="Searchtemplates"
+   package="edu.tamu.webtoxpi.Server.Models.Models" resource="edu/tamu/webtoxpi/Server/Models/Models/Searchtemplates.hbm.xml"/>
+  <mapping class="Sources"
+   package="edu.tamu.webtoxpi.Server.Models.Models" resource="edu/tamu/webtoxpi/Server/Models/Models/Sources.hbm.xml"/>
+  <mapping class="Types"
+   package="edu.tamu.webtoxpi.Server.Models.Models" resource="edu/tamu/webtoxpi/Server/Models/Models/Types.hbm.xml"/>
+  <mapping class="Users"
+   package="edu.tamu.webtoxpi.Server.Models.Models" resource="edu/tamu/webtoxpi/Server/Models/Models/Users.hbm.xml"/>
+  <mapping class="Viewtemplates"
+   package="edu.tamu.webtoxpi.Server.Models.Models" resource="edu/tamu/webtoxpi/Server/Models/Models/Viewtemplates.hbm.xml"/>
+  <mapping class="Weights"
+   package="edu.tamu.webtoxpi.Server.Models.Models" resource="edu/tamu/webtoxpi/Server/Models/Models/Weights.hbm.xml"/>
+  <mapping class="Importinfo"
+   package="edu.tamu.webtoxpi.Server.Models.Models" resource="edu/tamu/webtoxpi/Server/Models/Models/Importinfo.hbm.xml"/>
+  <mapping class="Units"
+   package="edu.tamu.webtoxpi.Server.Models.Models" resource="edu/tamu/webtoxpi/Server/Models/Models/Units.hbm.xml"/>
+ </session-factory>
+</hibernate-configuration>

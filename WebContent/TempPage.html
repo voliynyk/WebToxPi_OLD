@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WebToxPi</title>
+
+    <!-- Bootstrap -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<!--     <link rel="stylesheet" href="External/bootstrap3/css/theme1.css"> -->
+<link rel="stylesheet" href="css/temppage.css">
+
+<!--     <link rel="stylesheet" href="css/enterresults.css" /> -->
+ <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="http://imsky.github.io/holder/holder.js"></script>
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body style="overflow:hidden;">
+  <center><h1>Modal Window Demo</h1></center>  
+  
+<p><a class='activate_modal' name='first_window' href='#'>First modal window.</a></p>  
+<p><a class='activate_modal' name='second_window' href='#'>Second modal window.</a></p>  
+  
+<div id='mask' class='close_modal'></div>  
+  
+<div id='first_window' class='modal_window'></div>  
+<div id='second_window' class='modal_window'>Welcome to the second modal window</div> 
+<script type="text/javascript">
+
+    $(document).ready(function(){  
+      
+    //get the height and width of the page  
+     var window_width = $(window).width();  
+     var window_height = $(window).height();  
+      
+    //vertical and horizontal centering of modal window(s)  
+    /*we will use each function so if we have more then 1 
+    modal window we center them all*/  
+    $('.modal_window').each(function(){  
+      
+        //get the height and width of the modal  
+          var modal_height = $(this).outerHeight();  
+          var modal_width = $(this).outerWidth();  
+      
+         //calculate top and left offset needed for centering  
+          var top = (window_height-modal_height)/2;  
+         var left = (window_width-modal_width)/2;  
+      
+//         //apply new top and left css values  
+          $(this).css({'top' : top , 'left' : left});  
+      
+    });  
+      
+        $('.activate_modal').click(function(){  
+      
+              //get the id of the modal window stored in the name of the activating element  
+              var modal_id = $(this).attr('name');  
+      
+              //use the function to show it  
+              show_modal(modal_id);  
+      
+        });  
+      
+        $('.close_modal').click(function(){  
+      
+            //use the function to close it  
+            close_modal();  
+      
+        });  
+      
+    });  
+      
+    //THE FUNCTIONS  
+      
+    function close_modal(){  
+      
+        //hide the mask  
+        $('#mask').fadeOut(500);  
+      
+        //hide modal window(s)  
+        $('.modal_window').fadeOut(500);  
+      
+    }  
+    function show_modal(modal_id){  
+      
+        //set display to block and opacity to 0 so we can use fadeTo  
+        //$('#mask').css({ 'display' : 'block', opacity : 0});  
+      
+        //fade in the mask to opacity 0.8  
+        $('#mask').fadeTo(500,0.8);  
+      
+         //show the modal window  
+        $('#'+modal_id).fadeIn(500);  
+        
+        $('#'+modal_id)
+        .html('<object width="1400" height="650" data="EnterResults.jsp"/>'); 
+      //  $('#first_window').load('EnterResults.jsp');
+//       var modal_height = $('#'+modal_id).outerHeight();  
+//       var modal_width = $('#'+modal_id).outerWidth();  
+   
+       
+//       var top = (window_height-modal_height)/2;  
+//       var left = (window_width-modal_width)/2;  
+   
+       
+//       $('#'+modal_id).css({'top' : top , 'left' : left});  
+    }  
+</script>
+   
+  </body>
+</html>

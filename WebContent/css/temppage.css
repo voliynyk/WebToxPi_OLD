@@ -1,0 +1,31 @@
+
+ #mask{  
+    position:fixed; /* important */  
+    top:0px; /* start from top */  
+    left:0px; /* start from left */  
+    height:100%; /* cover the whole page */  
+    width:100%;  /* cover the whole page */  
+    display:none; /* don't show it '*/  
+  
+    /* styling bellow */  
+    background-color: black;  
+}  
+  
+.modal_window{  
+    position:fixed; /* important so we can position it on center later */  
+    display:none; /* don't show it */  
+/*   background: red; */
+    /* styling bellow */  
+    color:blue;  
+        width: 1400px;
+    height: 650px;
+}  
+  
+/* style a specific modal window  */  
+#modal_window{  
+    padding:50px;  
+    border:1px solid gray;  
+    background: red;
+/*     background: #246493;   */
+    color:black;  
+}  

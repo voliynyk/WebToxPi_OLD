@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 20, 2015 10:20:05 AM by Hibernate Tools 4.3.1.Final -->
+<hibernate-mapping>
+    <class name="edu.tamu.webtoxpi.Server.Models.Classes.Components" table="components" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+			<generator class="sequence">
+				<param name="sequence">components_id_seq</param>
+			</generator>
+        </id>
+        <many-to-one name="componentsources" class="edu.tamu.webtoxpi.Server.Models.Classes.Componentsources" fetch="select">
+            <column name="compsource_id" />
+        </many-to-one>
+        <many-to-one name="types" class="edu.tamu.webtoxpi.Server.Models.Classes.Types" fetch="select">
+            <column name="type_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="units" class="edu.tamu.webtoxpi.Server.Models.Classes.Units" fetch="select">
+            <column name="unit" not-null="true"/>
+        </many-to-one>
+        <many-to-one name="users" class="edu.tamu.webtoxpi.Server.Models.Classes.Users" fetch="select">
+            <column name="updatedby" not-null="true" />
+        </many-to-one>
+        <property name="code" type="string">
+            <column name="code" not-null="true" />
+        </property>
+        <property name="name" type="string">
+            <column name="name" />
+        </property>
+        <property name="updateddt" type="timestamp">
+            <column name="updateddt" length="29" not-null="true" />
+        </property>
+        <set name="resultses" table="results" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="component_id" not-null="true" />
+            </key>
+            <one-to-many class="edu.tamu.webtoxpi.Server.Models.Classes.Results" />
+        </set>
+    </class>
+    <query name="checkExistComponent">
+		select comp
+		from Components as comp
+		inner join comp.types tp
+		left join comp.componentsources componentSource
+		where comp.code = :compCode and tp.id = :typeId and (:compSource = -1 or componentSource.id = :compSource)
+	</query>
+	<query name="checkExistComponentByCode">
+		select comp
+		from Components as comp
+		where comp.code = :compCode
+	</query>
+</hibernate-mapping>

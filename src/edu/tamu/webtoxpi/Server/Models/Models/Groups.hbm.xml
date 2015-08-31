@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 20, 2015 10:20:05 AM by Hibernate Tools 4.3.1.Final -->
+<hibernate-mapping>
+    <class name="edu.tamu.webtoxpi.Server.Models.Classes.Groups" table="groups" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+			<generator class="sequence">
+				<param name="sequence">groups_id_seq</param>
+			</generator>
+        </id>
+        <many-to-one name="users" class="edu.tamu.webtoxpi.Server.Models.Classes.Users" fetch="select">
+            <column name="updatedby" not-null="true" />
+        </many-to-one>
+        <many-to-one name="weights" class="edu.tamu.webtoxpi.Server.Models.Classes.Weights" fetch="select">
+            <column name="weight_id" not-null="true" />
+        </many-to-one>
+        <property name="code" type="string">
+            <column name="code" not-null="true" />
+        </property>
+        <property name="name" type="string">
+            <column name="name" />
+        </property>
+        <property name="color" type="java.lang.Integer">
+            <column name="color" />
+        </property>
+        <property name="updateddt" type="timestamp">
+            <column name="updateddt" length="29" not-null="true" />
+        </property>
+        <set name="typeses" table="types" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="group_id" not-null="true" />
+            </key>
+            <one-to-many class="edu.tamu.webtoxpi.Server.Models.Classes.Types" />
+        </set>
+    </class>
+    <query name="findGroupsByWeight">
+		select grp
+		from Groups as grp
+		inner join grp.weights weight
+		where weight.code = :code
+	</query>
+</hibernate-mapping>

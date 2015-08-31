@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 20, 2015 10:20:05 AM by Hibernate Tools 4.3.1.Final -->
+<hibernate-mapping>
+    <class name="edu.tamu.webtoxpi.Server.Models.Classes.Chemicals" table="chemicals" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+			<generator class="sequence">
+				<param name="sequence">chemicals_id_seq</param>
+			</generator>
+        </id>
+        <many-to-one name="users" class="edu.tamu.webtoxpi.Server.Models.Classes.Users" fetch="select">
+            <column name="updatedby" not-null="true" />
+        </many-to-one>
+        <property name="code" type="string">
+            <column name="code" not-null="true" unique="true" />
+        </property>
+        <property name="name" type="string">
+            <column name="name" />
+        </property>
+        <property name="updateddt" type="timestamp">
+            <column name="updateddt" length="29" not-null="true" />
+        </property>
+        <set name="orderses" table="orders" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="chemical_id" not-null="true" />
+            </key>
+            <one-to-many class="edu.tamu.webtoxpi.Server.Models.Classes.Orders" />
+        </set>
+    </class>
+</hibernate-mapping>

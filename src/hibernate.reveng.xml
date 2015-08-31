@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+  <table-filter match-schema="public" match-name="casregistrynumbers"/>
+  <table-filter match-schema="public" match-name="chemicals"/>
+  <table-filter match-schema="public" match-name="components"/>
+  <table-filter match-schema="public" match-name="componentsources"/>
+  <table-filter match-schema="public" match-name="groups"/>
+  <table-filter match-schema="public" match-name="notes"/>
+  <table-filter match-schema="public" match-name="orders"/>
+  <table-filter match-schema="public" match-name="results"/>
+  <table-filter match-schema="public" match-name="searchtemplates"/>
+  <table-filter match-schema="public" match-name="sources"/>
+  <table-filter match-schema="public" match-name="types"/>
+  <table-filter match-schema="public" match-name="users"/>
+  <table-filter match-schema="public" match-name="viewtemplates"/>
+  <table-filter match-schema="public" match-name="weights"/>
+  <table-filter match-schema="public" match-name="Importinfo"/>
+  <table-filter match-schema="public" match-name="Units"/>
+</hibernate-reverse-engineering>

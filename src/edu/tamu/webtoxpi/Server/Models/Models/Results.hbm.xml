@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 20, 2015 10:20:05 AM by Hibernate Tools 4.3.1.Final -->
+<hibernate-mapping>
+    <class name="edu.tamu.webtoxpi.Server.Models.Classes.Results" table="results" schema="public" optimistic-lock="version">
+		<id name="id" type="int">
+			<column name="id" />
+			<generator class="sequence">
+				<param name="sequence">results_id_seq</param>
+			</generator>
+		</id>
+        <many-to-one name="components" class="edu.tamu.webtoxpi.Server.Models.Classes.Components" fetch="select">
+            <column name="component_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="orders" class="edu.tamu.webtoxpi.Server.Models.Classes.Orders" fetch="select">
+            <column name="order_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="users" class="edu.tamu.webtoxpi.Server.Models.Classes.Users" fetch="select">
+            <column name="updatedby" not-null="true" />
+        </many-to-one>
+        <property name="numresult" type="big_decimal">
+            <column name="numresult" precision="131089" scale="0" />
+        </property>
+        <property name="strresult" type="string">
+            <column name="strresult" />
+        </property>
+        <property name="boolresult" type="java.lang.Boolean">
+            <column name="boolresult" />
+        </property>
+        <property name="updateddt" type="timestamp">
+            <column name="updateddt" length="29" not-null="true" />
+        </property>
+    </class>
+    <query name="checkExistResult">
+		select res
+		from Results as res
+		inner join res.components component
+		inner join res.orders as order
+		where component.id = :compId and order.id = :orderId
+	</query>
+	<query name="findResultsByComponentCode">
+		select res
+		from Results as res
+		inner join res.components component
+		where component.code = :code
+	</query>
+</hibernate-mapping>
