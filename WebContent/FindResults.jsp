@@ -27,12 +27,7 @@
 		<section>
 		<div class="container">
 			<div id="dual-list-box-source" class="form-group row">
-				<select multiple="multiple" data-title="Sources" data-source="/WebToxPi/rest/results/getallsources" data-value="sourceId" data-text="sourceCode"></select>
-			</div>
-		</div>
-				<div class="container">
-			<div id="dual-list-box-casrn" class="form-group row">
-				<select multiple="multiple" data-title="CASRNs" data-source="/WebToxPi/rest/results/getallcasrns" data-value="casrnId" data-text="casrnCode"></select>
+				<select multiple="multiple" data-title="Sources" data-source="/WebToxPi/rest/loadsetupdata/getallsources" data-value="sourceId" data-text="sourceCode"></select>
 			</div>
 		</div>
 		</section>
@@ -41,7 +36,7 @@
 		<section>
 		<div class="container">
 			<div id="dual-list-box-casrn" class="form-group row">
-				<select multiple="multiple" data-title="CASRNs" data-source="/WebToxPi/rest/results/getallcasrns" data-value="casrnId" data-text="casrnCode"></select>
+				<select multiple="multiple" data-title="CASRNs" data-source="/WebToxPi/rest/loadsetupdata/getallcasrns" data-value="casrnId" data-text="casrnCode"></select>
 			</div>
 		</div>
 		</section>
@@ -50,7 +45,7 @@
 		<section>
 		<div class="container">
 			<div id="dual-list-box-chem" class="form-group row">
-				<select multiple="multiple" data-title="Chemicals" data-source="/WebToxPi/rest/results/getallchemicals" data-value="chemicalId" data-text="chemicalCode"></select>
+				<select multiple="multiple" data-title="Chemicals" data-source="/WebToxPi/rest/loadsetupdata/getallchemicals" data-value="chemicalId" data-text="chemicalCode"></select>
 			</div>
 		</div>
 		</section>
@@ -67,8 +62,8 @@
 		$("#example-vertical").steps({
 			headerTag : "h3",
 			bodyTag : "section",
-			transitionEffect : "slideLeft",
-			stepsOrientation : "vertical"
+			transitionEffect : "slideLeft"
+				//,stepsOrientation : "vertical"
 		});
 	</script>
 	<script type="text/javascript">
