@@ -51,13 +51,16 @@ public class ServicesREST
 	@GET
 	@Path("/getgroups/{weightid}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Groups> getGroupsByWeight(@PathParam("weightid") String weightid)
+	public List<String> getGroupsByWeight(@PathParam("weightid") String weightid)
 	{
-		List<Groups> returnValue = new ArrayList<Groups>();
+		List<String> returnValue = new ArrayList<String>();
 		try
 		{
 			//int id = Integer.parseInt(weightid);
-			returnValue = DataManager.getGroups(weightid);
+			for (Groups group : DataManager.getInstance().getGroups(weightid))
+			{
+				returnValue.add(group.getCode());
+			}			
 		}
 		catch (Exception e)
 		{

@@ -198,7 +198,7 @@ public class DataManager
 			HibernateUtil.rollbackTransaction();
 		}
 	}
-	public static List<Groups> getGroups(String code)
+	public List<Groups> getGroups(String code)
 	{
 		try
 		{
@@ -455,4 +455,28 @@ public class DataManager
 	}
 
 
+	
+	public static void newResultsForChemical(String componentName)
+	{
+		try
+		{
+			HibernateUtil.beginTransaction();
+			Components component = DAOManager.getInstance().getComponentDAO().checkExistComponent(componentName);
+			
+			if (component != null)
+			{		
+				for (Orders order : (List<Orders>)DAOManager.getInstance().getOrderDAO().findAll(Orders.class))
+				{
+					DAOManager.getInstance().getResultDAO().findExistOrCreateNewResult(order, component, null);
+				}
+			}
+			HibernateUtil.commitTransaction();
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+			HibernateUtil.rollbackTransaction();
+		}
+		
+	}
 }

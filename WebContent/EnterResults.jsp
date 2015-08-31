@@ -398,23 +398,26 @@ function checkInput(radio) {
 	   
    }
    function weightChanged(){
-// 	  ?? var weight = $("#weight").value;
-<%-- 	   <%  --%>
-// 	    groups = new ArrayList<String>();
-// 	       for (Groups group : DataManager.getGroupsByWeight(weight))
-// 	   	{
-// 	        groups.add(group.getCode());
-// 	   	}
-// 	        arrGroups = groups.toString();
-<%-- 	   %> --%>
-<%-- 	    dataGroups = '<%= arrGroups %>'; --%>
-// 	   dataGroups = dataGroups.slice(1, dataGroups.length - 1);
-// 	    inputGroups = dataGroups.split(", ");
-	   
-// 	    var combo = $("#sliceName").swidget(),
-// 	    options = combo.initialOptions;
-// 	    options.dataSource.data = inputGroups;
-// 	    combo.refresh(options);
+	   if ($("#weight").val() !== null && $("#weight").val() !== undefined)
+	   {
+		   var weight = $("#weight").val();
+		   var groupsByWeight = [];
+		   var sGroupsByWeight;
+		   $.ajax({
+		        url: "/WebToxPi/rest/results/getgroups/" + weight
+		    }).then(function(griddata)
+		    {
+		    	groupsByWeight = griddata;		        
+		    })
+			sGroupsByWeight = groupsByWeight.toString();
+		   
+		    inputGroupsByWeight = sGroupsByWeight.split(",");
+		   
+		    var combo = $("#sliceName").swidget(),
+		    options = combo.initialOptions;
+		    options.dataSource.data = inputGroupsByWeight;
+		    combo.refresh(options);
+	   }
    }
    </script>
 </body>

@@ -53,7 +53,15 @@ public class NewResultsServlet extends HttpServlet
 		}
 		else
 		{
-		
+			if ("ByComponent".equals(request.getParameter("TypeOfInput")))
+			{
+				String componentName = request.getParameter("componentName");
+				
+				if (componentName != null && !componentName.isEmpty())
+				{
+					DataManager.newResultsForChemical(componentName);
+				}
+			}
 		}
 	}
 
