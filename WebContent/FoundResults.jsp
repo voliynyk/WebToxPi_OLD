@@ -59,7 +59,7 @@ function getShieldGridFields(obj)
     {
     	$.each(obj[0], function(k, v)
                 {
-            		resultStr += k + ': { path: "' + k + '", type : String }, ';
+            		resultStr += '"' + k + '"' + ': { path: "' + k + '", type : String }, ';
             	}
             	);
     	resultStr = resultStr.substr(0, resultStr.length-2); 

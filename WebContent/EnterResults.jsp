@@ -68,7 +68,7 @@ function checkInput(radio) {
     <input class="radioinput" type="radio" name="radio-btn" id="sld-3" />
     <li class="slide-container">
     
-     <form action="NewResultsServlet?TypeOfInput=ByChemichal" role="form" method="post" id="inputForm">
+     <form action="NewResultsServlet?TypeOfInput=ByChemichal" role="form" method="post" id="inputForm" target="_top">
      
         <div class="slide">
           <div class="outerDiv">
