@@ -27,7 +27,7 @@ public class SearchResultsServlet extends HttpServlet
 		String chemical = request.getParameter("chemical");
 		String component = request.getParameter("component");
 
-		String outdata = DataManager.getJSON(casrn, chemical, component);
+		String outdata = DataManager.getJSON(casrn, chemical, "", component);
 		request.setAttribute("outdata", outdata);
 
 		this.getServletContext().getRequestDispatcher("/FoundResults.jsp").include(request, response);

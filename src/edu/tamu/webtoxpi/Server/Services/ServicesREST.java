@@ -12,6 +12,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import edu.tamu.webtoxpi.Client.DataManager.DataManager;
 import edu.tamu.webtoxpi.Server.InBound.UpdateResult;
 import edu.tamu.webtoxpi.Server.Models.Classes.Groups;
+import edu.tamu.webtoxpi.Server.Models.Classes.Types;
 import edu.tamu.webtoxpi.Server.Models.DAO.DAOManager;
 import edu.tamu.webtoxpi.Server.Outbound.OutViewChemical;
 import edu.tamu.webtoxpi.Server.Outbound.OutViewComponent;
@@ -56,10 +57,30 @@ public class ServicesREST
 		List<String> returnValue = new ArrayList<String>();
 		try
 		{
-			//int id = Integer.parseInt(weightid);
 			for (Groups group : DataManager.getInstance().getGroups(weightid))
 			{
 				returnValue.add(group.getCode());
+			}			
+		}
+		catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
+
+		return returnValue;		
+	}
+		
+	@GET
+	@Path("/gettypes/{groupid}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<String> getTypesByGroup(@PathParam("groupid") String groupid)
+	{
+		List<String> returnValue = new ArrayList<String>();
+		try
+		{
+			for (Types type : DataManager.getInstance().getTypes(groupid))
+			{
+				returnValue.add(type.getCode());
 			}			
 		}
 		catch (Exception e)

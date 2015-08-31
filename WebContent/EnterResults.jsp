@@ -33,7 +33,7 @@ var inputHeight = 25;
 function checkInput(radio) {
 	
 	radio.checked = true;
-     document.getElementById("inputForm").action='NewResultsServlet?TypeOfInput=' + radio.value ;
+//      document.getElementById("inputForm").action='NewResultsServlet?TypeOfInput=' + radio.value ;
      
 }
     </script>
@@ -52,9 +52,9 @@ function checkInput(radio) {
   <div class="outerDiv">
     <label >Select how you want to input results:</label>
     <div class="rb-container">
-        <input type="radio" id="radio1" name="option" value="ByChemichal" onclick="checkInput('ByChemichal');"/>
+        <input type="radio" id="radio1" name="option" value="ByChemichal" />
         <br />
-        <input type="radio" id="radio2" name="option" value="ByComponent" onclick="checkInput('ByComponent');"/>        
+        <input type="radio" id="radio2" name="option" value="ByComponent" />        
     </div>
  </div>
         </div>
@@ -68,7 +68,7 @@ function checkInput(radio) {
     <input class="radioinput" type="radio" name="radio-btn" id="sld-3" />
     <li class="slide-container">
     
-     <form action="NewResultsServlet" role="form" method="post" id="inputForm">
+     <form action="NewResultsServlet?TypeOfInput=ByChemichal" role="form" method="post" id="inputForm">
      
         <div class="slide">
           <div class="outerDiv">
@@ -90,7 +90,7 @@ function checkInput(radio) {
 		<div class="nav">
 			<label for="sld-1" class="prev" >&#x2039;</label>
  			<label class="next" style="top: 60%;">Submit
-<button  type="submit" class="btn btn-default" onclick="SubmitResults()"></button>
+<button  type="submit" class="btn btn-default" ></button>
 </label>
 		</div>
 		 
@@ -101,7 +101,7 @@ function checkInput(radio) {
     <input class="radioinput" type="radio" name="radio-btn" id="sld-2" />
     <li class="slide-container">
     
-     <form action="NewResultsServlet" role="form" method="post" id="inputForm">
+     <form action="NewResultsServlet?TypeOfInput=ByComponent" role="form" method="post" id="inputForm" target="_top">
      
         <div class="slide">
           <div class="outerDiv">
@@ -131,7 +131,7 @@ function checkInput(radio) {
 		<div class="nav">
 			<label for="sld-1" class="prev" position: fixed; left: 90px;>&#x2039;</label>
  			<label class="next" style="top: 60%;">Submit
-<button  type="submit" class="btn btn-default" onclick="SubmitResults()"></button>
+<button  type="submit" class="btn btn-default" ></button>
 </label>
 		</div>
 		 
@@ -277,6 +277,16 @@ function checkInput(radio) {
                dropDownHeight: dropDownHeight,
                 dropDownWidth: dropDownWidth
            });
+//            var el = document.getElementById("weight");
+//            el.onkeyup = function() {
+        	    
+//         	    alert("keyup: ");
+//         	};
+// jQuery(function($) {
+//     $('#weight').on('keyup', function() {
+//         alert('key up');
+//     });
+// });
            $("#weight").shieldComboBox({
                dataSource: {
                    data: inputWeights
@@ -285,7 +295,7 @@ function checkInput(radio) {
                    enabled: true
                },
                events: {
-                   change: function(e) {
+            	   change: function(e) {
                 	   weightChanged();
                    }
                },
@@ -294,12 +304,18 @@ function checkInput(radio) {
                dropDownHeight: dropDownHeight,
                 dropDownWidth: dropDownWidth
            });
+           
            $("#sliceName").shieldComboBox({
                dataSource: {
                    data: inputGroups
                },
                autoComplete: {
                    enabled: true
+               },
+               events: {
+                   change: function(e) {
+                	   groupChanged();
+                   }
                },
                width: inputWidth,
                height: inputHeight,
@@ -339,7 +355,7 @@ function checkInput(radio) {
                },
                events: {
                    change: function(e) {
-                       alert("change event");
+//                        alert("change event");
                    }
                },
                width: inputWidth,
@@ -347,15 +363,6 @@ function checkInput(radio) {
                dropDownHeight: dropDownHeight,
                 dropDownWidth: dropDownWidth
            });
-//            $("#submit").shieldButton({
-//                events: {
-//                    click: function () {
-//                        var technology = $("#comboBoxTech").swidget().value();
-//                        var years = $("#comboBoxYears").swidget().value();
-//                        alert("You selected: \n Technology: " + technology + "\n Years: " + years);
-//                    }
-//                }
-//            });
 
            $("#radio1").shieldRadioButton({
                label: "By Chemichal",
@@ -382,7 +389,7 @@ function checkInput(radio) {
    
    function SubmitResults(){
 	   
-	   top.location.href = "GeneralPage.jsp";
+// 	   top.location.href = "FoundResults.jsp";
    }
    function NextSlide(){
 	   if ($('#radio1')[0].checked)
@@ -400,22 +407,42 @@ function checkInput(radio) {
    function weightChanged(){
 	   if ($("#weight").val() !== null && $("#weight").val() !== undefined)
 	   {
-		   var weight = $("#weight").val();
-		   var groupsByWeight = [];
-		   var sGroupsByWeight;
-		   $.ajax({
-		        url: "/WebToxPi/rest/results/getgroups/" + weight
+		   var parent = $("#weight").val();
+		   var sChildsByParent;
+		   $.ajax({async:false,
+		        url: "/WebToxPi/rest/results/getgroups/" + parent
 		    }).then(function(griddata)
-		    {
-		    	groupsByWeight = griddata;		        
-		    })
-			sGroupsByWeight = groupsByWeight.toString();
+		    {		    		
+		    	sChildsByParent = griddata.toString();
+		    })			
 		   
-		    inputGroupsByWeight = sGroupsByWeight.split(",");
+		    inputChildsByParent = sChildsByParent.split(",");
 		   
 		    var combo = $("#sliceName").swidget(),
+		    options = combo.initialOptions;		    
+	  	    options.dataSource.data = inputChildsByParent;
+ 		    combo.refresh(options); 		   
+	   }
+   }
+   
+   function groupChanged()  
+   {
+	   if ($("#sliceName").val() !== null && $("#sliceName").val() !== undefined)
+	   {
+		   var parent = $("#sliceName").val();
+		   var sChildsByParent;
+		   $.ajax({async:false,
+		        url: "/WebToxPi/rest/results/gettypes/" + parent
+		    }).then(function(griddata)
+		    {
+		    	sChildsByParent = griddata.toString();
+		    })			
+		   
+		    inputChildsByParent = sChildsByParent.split(",");
+		   
+		    var combo = $("#sliceType").swidget(),
 		    options = combo.initialOptions;
-		    options.dataSource.data = inputGroupsByWeight;
+		    options.dataSource.data = inputChildsByParent;
 		    combo.refresh(options);
 	   }
    }

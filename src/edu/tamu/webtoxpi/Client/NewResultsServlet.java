@@ -48,7 +48,13 @@ public class NewResultsServlet extends HttpServlet
 				chemicalsource != null && !chemicalsource.isEmpty() &&
 				chemical != null && !chemical.isEmpty())
 			{
-				DataManager.newResultsForChemical(casrn, chemicalsource, chemical);
+				DataManager.newResults(casrn, chemicalsource, chemical);
+			
+
+				String outdata = DataManager.getJSON(casrn, chemical, chemicalsource, "");
+				request.setAttribute("outdata", outdata);
+
+				this.getServletContext().getRequestDispatcher("/FoundResults.jsp").include(request, response);
 			}
 		}
 		else
@@ -59,7 +65,12 @@ public class NewResultsServlet extends HttpServlet
 				
 				if (componentName != null && !componentName.isEmpty())
 				{
-					DataManager.newResultsForChemical(componentName);
+					DataManager.newResults(componentName);
+					
+					String outdata = DataManager.getJSON("", "", "", componentName);
+					request.setAttribute("outdata", outdata);
+
+					this.getServletContext().getRequestDispatcher("/FoundResults.jsp").include(request, response);
 				}
 			}
 		}

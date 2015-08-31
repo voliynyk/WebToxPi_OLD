@@ -72,12 +72,12 @@ public class DataManager
 		return DAOManager.getInstance().getComponentDAO().findComponents(casrn, chemical, component);
 	}
 	
-	public static List<Orders> getOrders(String casrn, String chemical, String component)
+	public static List<Orders> getOrders(String casrn, String chemical, String chemicalsource, String component)
 	{
-		return DAOManager.getInstance().getOrderDAO().findOrders(casrn, chemical, component);
+		return DAOManager.getInstance().getOrderDAO().findOrders(casrn, chemical, chemicalsource, component);
 	}
 	
-	public static OutData getSearchResult(String casrn, String chemical, String component)
+	public static OutData getSearchResult(String casrn, String chemical, String chemicalsource, String component)
 	{
 		OutData returnValue = new OutData();
 		
@@ -85,7 +85,7 @@ public class DataManager
 		{
 			HibernateUtil.beginTransaction();
 
-			List<Orders> orders = DAOManager.getInstance().getOrderDAO().findOrders(casrn, chemical, component);
+			List<Orders> orders = DAOManager.getInstance().getOrderDAO().findOrders(casrn, chemical, chemicalsource, component);
 			returnValue.getOrdersOrder().addAll(orders);
 			
 			List<String> components = new ArrayList<String>();
@@ -133,9 +133,9 @@ public class DataManager
 		return returnValue;
 	}
 	
-	public static String getJSON(String casrn, String chemical, String component)
+	public static String getJSON(String casrn, String chemical,String chemicalsource, String component)
 	{
-		OutData outData = getSearchResult(casrn, chemical, component);
+		OutData outData = getSearchResult(casrn, chemical, chemicalsource, component);
 		
 		JSONArray list = new JSONArray();
 		try
@@ -204,6 +204,18 @@ public class DataManager
 		{
 			HibernateUtil.beginTransaction();
 			return DAOManager.getInstance().getGroupDAO().findGroupsByWeight(code);
+		}
+		finally
+		{
+			HibernateUtil.rollbackTransaction();
+		}
+	}
+	public List<Types> getTypes(String code)
+	{
+		try
+		{
+			HibernateUtil.beginTransaction();
+			return DAOManager.getInstance().getTypeDAO().findTypesByGroup(code);
 		}
 		finally
 		{
@@ -312,7 +324,7 @@ public class DataManager
 			HibernateUtil.rollbackTransaction();
 		}
 	}
-	public static void newResultsForChemical(String sCasrn, String sChemicalSource, String sChemical)
+	public static void newResults(String sCasrn, String sChemicalSource, String sChemical)
 	{
 		try
 		{
@@ -456,7 +468,7 @@ public class DataManager
 
 
 	
-	public static void newResultsForChemical(String componentName)
+	public static void newResults(String componentName)
 	{
 		try
 		{

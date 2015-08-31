@@ -32,4 +32,10 @@
             <one-to-many class="edu.tamu.webtoxpi.Server.Models.Classes.Components" />
         </set>
     </class>
+    <query name="findTypesByGroup">
+		select tp
+		from Types as tp
+		inner join tp.groups groups
+		where groups.code = :code
+	</query>
 </hibernate-mapping>
