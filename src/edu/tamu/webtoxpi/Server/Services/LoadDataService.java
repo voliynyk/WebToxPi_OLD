@@ -7,7 +7,7 @@ import javax.ws.rs.core.*;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
-import edu.tamu.webtoxpi.Client.DataManager.DataManager;
+import edu.tamu.webtoxpi.Client.DataManager.LoadDataForViewManager;
 import edu.tamu.webtoxpi.Server.Outbound.*;
 
 
@@ -20,7 +20,7 @@ public class LoadDataService
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<OutViewSources> getAllSources()
 	{
-		return DataManager.getInstance().getAllSourcesForView();
+		return LoadDataForViewManager.getInstance().getAllSourcesForView();
 	}
 	
 	@GET
@@ -28,7 +28,7 @@ public class LoadDataService
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<OutViewCASRN> getAllCASRNs()
 	{
-		return DataManager.getInstance().getAllCASRNSForView();
+		return LoadDataForViewManager.getInstance().getAllCASRNSForView();
 	}
 	
 	@GET
@@ -36,7 +36,7 @@ public class LoadDataService
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<OutViewChemical> getAllChemicals()
 	{
-		return DataManager.getInstance().getAllChemicalsForView();
+		return LoadDataForViewManager.getInstance().getAllChemicalsForView();
 	}
 	
 	@GET
@@ -44,6 +44,30 @@ public class LoadDataService
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<OutViewWeight> getAllWeights()
 	{
-		return DataManager.getInstance().getAllWeightsForView();
+		return LoadDataForViewManager.getInstance().getAllWeightsForView();
+	}
+	
+	@GET
+	@Path("/getallgroups")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<OutViewGroup> getAllGroups()
+	{
+		return LoadDataForViewManager.getInstance().getAllGroupsForView();
+	}
+	
+	@GET
+	@Path("/getalltypes")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<OutViewType> getAllTypes()
+	{
+		return LoadDataForViewManager.getInstance().getAllTypesForView();
+	}
+	
+	@GET
+	@Path("/getallcomponents")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<OutViewComponent> getAllComponents()
+	{
+		return LoadDataForViewManager.getInstance().getAllComponentsForView();
 	}
 }

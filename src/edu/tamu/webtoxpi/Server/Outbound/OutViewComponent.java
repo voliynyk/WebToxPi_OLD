@@ -5,12 +5,20 @@ public class OutViewComponent
 	private int componentId;
 	private String unitCode;
 	private String componentCode;
+	private String componentName;
 	private String typeCode;
 	private String groupCode;
 	private String weightCode;
 	
 	public OutViewComponent()
 	{
+	}
+	
+	public OutViewComponent(int componentId, String componentCode, String componentName)
+	{
+		this.componentId = componentId;
+		this.componentCode = componentCode;
+		this.componentName = componentName;
 	}
 	
 	public OutViewComponent(int componentId, String unitCode, String componentCode, String typeCode, String groupCode, String weightCode)
@@ -51,6 +59,16 @@ public class OutViewComponent
 	public void setComponentCode(String componentCode)
 	{
 		this.componentCode = componentCode;
+	}
+	
+	public String getComponentName()
+	{
+		return componentName;
+	}
+
+	public void setComponentName(String componentName)
+	{
+		this.componentName = componentName;
 	}
 
 	public String getTypeCode()

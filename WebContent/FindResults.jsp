@@ -50,10 +50,40 @@
 		</div>
 		</section>
 		
-		<h3>Pager</h3>
+		<h3>Weights</h3>
 		<section>
-		<p>The next and previous buttons help you to navigate through your
-			content.</p>
+		<div class="container">
+			<div id="dual-list-box-weight" class="form-group row">
+				<select multiple="multiple" data-title="Weights" data-source="/WebToxPi/rest/loadsetupdata/getallweights" data-value="id" data-text="code"></select>
+			</div>
+		</div>
+		</section>
+		
+		<h3>Groups</h3>
+		<section>
+		<div class="container">
+			<div id="dual-list-box-groups" class="form-group row">
+				<select multiple="multiple" data-title="Groups" data-source="/WebToxPi/rest/loadsetupdata/getallgroups" data-value="id" data-text="code"></select>
+			</div>
+		</div>
+		</section>
+		
+		<h3>Types</h3>
+		<section>
+		<div class="container">
+			<div id="dual-list-box-types" class="form-group row">
+				<select multiple="multiple" data-title="Types" data-source="/WebToxPi/rest/loadsetupdata/getalltypes" data-value="id" data-text="code"></select>
+			</div>
+		</div>
+		</section>
+		
+		<h3>Components</h3>
+		<section>
+		<div class="container">
+			<div id="dual-list-box-component" class="form-group row">
+				<select multiple="multiple" data-title="Components" data-source="/WebToxPi/rest/loadsetupdata/getallcomponents" data-value="componentId" data-text="componentCode"></select>
+			</div>
+		</div>
 		</section>
 	</div>
 
@@ -63,7 +93,7 @@
 			headerTag : "h3",
 			bodyTag : "section",
 			transitionEffect : "slideLeft"
-				//,stepsOrientation : "vertical"
+			,stepsOrientation : "vertical"
 		});
 	</script>
 	<script type="text/javascript">
