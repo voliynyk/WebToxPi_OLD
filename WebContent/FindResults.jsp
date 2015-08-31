@@ -27,7 +27,7 @@
 		<section>
 		<div class="container">
 			<div id="dual-list-box-source" class="form-group row">
-				<select multiple="multiple" data-title="Sources" data-source="/WebToxPi/rest/loadsetupdata/getallsources" data-value="sourceId" data-text="sourceCode"></select>
+				<select multiple="multiple" data-title="Sources" data-source="/WebToxPi/rest/loadsetupdata/getallsources" data-value="id" data-text="code"></select>
 			</div>
 		</div>
 		</section>
@@ -36,7 +36,7 @@
 		<section>
 		<div class="container">
 			<div id="dual-list-box-casrn" class="form-group row">
-				<select multiple="multiple" data-title="CASRNs" data-source="/WebToxPi/rest/loadsetupdata/getallcasrns" data-value="casrnId" data-text="casrnCode"></select>
+				<select multiple="multiple" data-title="CASRNs" data-source="/WebToxPi/rest/loadsetupdata/getallcasrns" data-value="id" data-text="code"></select>
 			</div>
 		</div>
 		</section>

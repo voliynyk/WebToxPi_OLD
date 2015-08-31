@@ -209,7 +209,7 @@ public class DataManager
 		try
 		{
 			HibernateUtil.beginTransaction();
-			return DAOManager.getInstance().getTypeDAO().findTypesByGroup(code);
+			return null;// DAOManager.getInstance().getTypeDAO().findTypesByGroup(code);
 		}
 		finally
 		{
@@ -414,7 +414,7 @@ public class DataManager
 
 			for (Sources source : sources)
 			{
-				returnSources.add(new OutViewSources(source.getId(), source.getCode()));
+				returnSources.add(new OutViewSources(source.getId(), source.getCode(), source.getName()));
 			}
 
 		}
@@ -436,7 +436,7 @@ public class DataManager
 
 			for (Casregistrynumbers casrn : casrns)
 			{
-				returnCASRNS.add(new OutViewCASRN(casrn.getId(), casrn.getCode()));
+				returnCASRNS.add(new OutViewCASRN(casrn.getId(), casrn.getCode(), casrn.getName()));
 			}
 
 		}
@@ -468,6 +468,28 @@ public class DataManager
 		}
 
 		return returnChemicals;
+	}
+	
+	public List<OutViewWeight> getAllWeightsForView()
+	{
+		List<OutViewWeight> returnWeights = new ArrayList<OutViewWeight>();
+		try
+		{
+			HibernateUtil.beginTransaction();
+			List<Weights> weights = DAOManager.getInstance().getCasregistrynumberDAO().findAll(Weights.class);
+
+			for (Weights weight : weights)
+			{
+				returnWeights.add(new OutViewWeight(weight.getId(), weight.getCode(), weight.getName()));
+			}
+
+		}
+		finally
+		{
+			HibernateUtil.rollbackTransaction();
+		}
+
+		return returnWeights;
 	}
 
 	public List<OutViewComponent> getComponentsForView(int orderId)

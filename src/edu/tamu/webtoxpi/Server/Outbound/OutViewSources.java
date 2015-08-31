@@ -1,33 +1,9 @@
 package edu.tamu.webtoxpi.Server.Outbound;
 
-public class OutViewSources
+public class OutViewSources extends OutViewBase
 {
-	private int sourceId;
-	private String sourceCode;
-	
-	public OutViewSources(int sourceId, String sourceCode)
+	public OutViewSources(int id, String code, String name)
 	{
-		this.sourceId = sourceId;
-		this.sourceCode = sourceCode;
-	}
-
-	public int getSourceId()
-	{
-		return sourceId;
-	}
-
-	public void setSourceId(int sourceId)
-	{
-		this.sourceId = sourceId;
-	}
-
-	public String getSourceCode()
-	{
-		return sourceCode;
-	}
-
-	public void setSourceCode(String sourceCode)
-	{
-		this.sourceCode = sourceCode;
+		super(id, code, name);
 	}
 }

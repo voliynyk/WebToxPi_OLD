@@ -40,10 +40,10 @@ public class LoadDataService
 	}
 	
 	@GET
-	@Path("/getallorders")
+	@Path("/getallweights")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<OutViewChemical> getAllOrders()
+	public List<OutViewWeight> getAllWeights()
 	{
-		return DataManager.getInstance().getAllOrdersForView();
+		return DataManager.getInstance().getAllWeightsForView();
 	}
 }

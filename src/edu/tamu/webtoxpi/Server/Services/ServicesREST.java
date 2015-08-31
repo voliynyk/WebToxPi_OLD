@@ -25,6 +25,14 @@ import edu.tamu.webtoxpi.Server.Outbound.OutViewSources;
 public class ServicesREST
 {
 	@GET
+	@Path("/getallorders")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<OutViewChemical> getAllOrders()
+	{
+		return DataManager.getInstance().getAllOrdersForView();
+	}
+	
+	@GET
 	@Path("/getcomponents/{orderid}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<OutViewComponent> getComponentsByOrder(@PathParam("orderid") String orderid)
