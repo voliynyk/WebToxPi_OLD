@@ -41,7 +41,7 @@ public class SearchResultsServlet extends HttpServlet
 		}
 
 
-		String outdata = DataManager.getJSON(source, casrn, chemical, component, "", searchById);
+		String outdata = DataManager.getJSON(source, casrn, chemical, component, searchById);
 		request.setAttribute("outdata", outdata);
 
 		this.getServletContext().getRequestDispatcher("/FoundResults.jsp").include(request, response);

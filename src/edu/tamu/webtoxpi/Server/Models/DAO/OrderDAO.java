@@ -125,7 +125,7 @@ public class OrderDAO extends GenericDAOImpl<Orders, Integer> implements IOrderD
 		return result;
 	}
 
-	public List<Orders> findOrders(String source, String casrn, String chemical, String component, String chemicalsource)
+	public List<Orders> findOrders(String source, String casrn, String chemical, String component)
 	{
 		List<Orders> result = new ArrayList();
 		Criteria criteria = HibernateUtil.getSession().createCriteria(Orders.class, "order");
@@ -140,10 +140,10 @@ public class OrderDAO extends GenericDAOImpl<Orders, Integer> implements IOrderD
 			criteria.createAlias("order.chemicals", "chemical");
 			criteria.add(Restrictions.in("chemical.code", chemical.split(",")));
 		}
-		if (StringUtils.isNotBlank(chemicalsource))
+		if (StringUtils.isNotBlank(source))
 		{
-			criteria.createAlias("order.sources", "chemicalsource");
-			criteria.add(Restrictions.in("chemicalsource.code", chemicalsource.split(",")));
+			criteria.createAlias("order.sources", "source");
+			criteria.add(Restrictions.in("source.code", source.split(",")));
 		}		
 		if (StringUtils.isNotBlank(component))
 		{

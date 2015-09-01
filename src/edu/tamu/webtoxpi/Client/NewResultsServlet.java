@@ -40,18 +40,18 @@ public class NewResultsServlet extends HttpServlet
 	{
 		if ("ByChemichal".equals(request.getParameter("TypeOfInput")))
 		{
+			String source = request.getParameter("chemicalsource");
 			String casrn = request.getParameter("casrn");
-			String chemicalsource = request.getParameter("chemicalsource");
 			String chemical = request.getParameter("chemical");
 			
 			if (casrn != null && !casrn.isEmpty() &&
-				chemicalsource != null && !chemicalsource.isEmpty() &&
+					source != null && !source.isEmpty() &&
 				chemical != null && !chemical.isEmpty())
 			{
-				DataManager.newResults(casrn, chemicalsource, chemical);
+				DataManager.newResults(source, casrn, chemical);
 			
 
-				String outdata = DataManager.getJSON(casrn, chemical, "", "", chemicalsource, false);
+				String outdata = DataManager.getJSON(source, casrn, chemical, "", false);
 				request.setAttribute("outdata", outdata);
 
 				this.getServletContext().getRequestDispatcher("/FoundResults.jsp").include(request, response);
@@ -67,7 +67,7 @@ public class NewResultsServlet extends HttpServlet
 				{
 					DataManager.newResults(componentName);
 					
-					String outdata = DataManager.getJSON("", "", "", "", componentName, false);
+					String outdata = DataManager.getJSON("", "", "", componentName, false);
 					request.setAttribute("outdata", outdata);
 
 					this.getServletContext().getRequestDispatcher("/FoundResults.jsp").include(request, response);

@@ -66,12 +66,12 @@ public class DataManager
 		return DAOManager.getInstance().getComponentDAO().findComponents(casrn, chemical, component);
 	}
 	
-	public static List<Orders> getOrders(String casrn, String chemical, String chemicalsource, String component)
+	public static List<Orders> getOrders(String source, String casrn, String chemical, String component)
 	{
-		return DAOManager.getInstance().getOrderDAO().findOrders(casrn, chemical, chemicalsource, component, "");
+		return DAOManager.getInstance().getOrderDAO().findOrders(source, casrn, chemical, component);
 	}
 	
-	public static OutData getSearchResult(String source, String casrn, String chemical, String component, String chemicalsource, boolean searchById)
+	public static OutData getSearchResult(String source, String casrn, String chemical, String component, boolean searchById)
 	{
 		OutData returnValue = new OutData();
 		
@@ -85,7 +85,7 @@ public class DataManager
 			}
 			else
 			{
-				orders = DAOManager.getInstance().getOrderDAO().findOrders(source, casrn, chemical, component, chemicalsource);	
+				orders = DAOManager.getInstance().getOrderDAO().findOrders(source, casrn, chemical, component);	
 			}
 			
 			returnValue.getOrdersOrder().addAll(orders);
@@ -137,9 +137,9 @@ public class DataManager
 		return returnValue;
 	}
 	
-	public static String getJSON(String source, String casrn, String chemical, String component, String chemicalsource, boolean searchById)
+	public static String getJSON(String source, String casrn, String chemical, String component, boolean searchById)
 	{
-		OutData outData = getSearchResult(source, casrn, chemical, component, chemicalsource, searchById);
+		OutData outData = getSearchResult(source, casrn, chemical, component, searchById);
 		
 		JSONArray list = new JSONArray();
 		try
@@ -328,18 +328,18 @@ public class DataManager
 			HibernateUtil.rollbackTransaction();
 		}
 	}
-	public static void newResults(String sCasrn, String sChemicalSource, String sChemical)
+	public static void newResults(String sSource, String sCasrn, String sChemical)
 	{
 		try
 		{
 			HibernateUtil.beginTransaction();
+			Sources source = DAOManager.getInstance().getSourceDAO().findExistOrCreateNewSource(sSource);
 			Casregistrynumbers casrn = DAOManager.getInstance().getCasregistrynumberDAO().findExistOrCreateNewCASRN(sCasrn);
-			Sources chemicalSource = DAOManager.getInstance().getSourceDAO().findExistOrCreateNewSource(sChemicalSource);
 			Chemicals chemical = DAOManager.getInstance().getChemicalDAO().findExistOrCreateNewChemical(sChemical);
 				
 			for (Components component : (List<Components>)DAOManager.getInstance().getComponentDAO().findAll(Components.class))
 			{
-				Orders order = DAOManager.getInstance().getOrderDAO().findExistOrCreateNewOrder(Auth.getCurrentUser(), "", "", chemicalSource, casrn, chemical);
+				Orders order = DAOManager.getInstance().getOrderDAO().findExistOrCreateNewOrder(Auth.getCurrentUser(), "", "", source, casrn, chemical);
 				DAOManager.getInstance().getResultDAO().findExistOrCreateNewResult(order, component, null);
 			}
 			HibernateUtil.commitTransaction();
