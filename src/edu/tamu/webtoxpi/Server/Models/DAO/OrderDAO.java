@@ -8,6 +8,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 
+import edu.tamu.webtoxpi.Client.DataManager.Util;
 import edu.tamu.webtoxpi.Server.Models.Classes.Casregistrynumbers;
 import edu.tamu.webtoxpi.Server.Models.Classes.Chemicals;
 import edu.tamu.webtoxpi.Server.Models.Classes.Importinfo;
@@ -93,23 +94,23 @@ public class OrderDAO extends GenericDAOImpl<Orders, Integer> implements IOrderD
 		if (StringUtils.isNotBlank(source))
 		{
 			criteria.createAlias("order.sources" , "source");
-			criteria.add(Restrictions.in("source.id", source.split(",")));
+			criteria.add(Restrictions.in("source.id", Util.convertArrayToInt(source.split(","))));
 		}
 		if (StringUtils.isNotBlank(casrn))
 		{
 			criteria.createAlias("order.casregistrynumbers" , "casregistrynumber");
-			criteria.add(Restrictions.in("casregistrynumber.id", casrn.split(",")));
+			criteria.add(Restrictions.in("casregistrynumber.id", Util.convertArrayToInt(casrn.split(","))));
 		}
 		if (StringUtils.isNotBlank(chemical))
 		{
 			criteria.createAlias("order.chemicals", "chemical");
-			criteria.add(Restrictions.in("chemical.id", chemical.split(",")));
+			criteria.add(Restrictions.in("chemical.id", Util.convertArrayToInt(chemical.split(","))));
 		}
 		if (StringUtils.isNotBlank(component))
 		{
 			criteria.createAlias("order.resultses", "results");
 			criteria.createAlias("results.components", "component");
-			criteria.add(Restrictions.in("component.id", component.split(",")));
+			criteria.add(Restrictions.in("component.id", Util.convertArrayToInt(component.split(","))));
 		}
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		try
@@ -123,7 +124,7 @@ public class OrderDAO extends GenericDAOImpl<Orders, Integer> implements IOrderD
 		
 		return result;
 	}
-	
+
 	public List<Orders> findOrders(String source, String casrn, String chemical, String component, String chemicalsource)
 	{
 		List<Orders> result = new ArrayList();

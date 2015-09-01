@@ -105,15 +105,19 @@
 			onFinished:
 				function (event, currentIndex)
 				{
-			         $.ajax({
+				document.getElementById("source").value = $('select').getSelectedItems(1);
+				document.getElementById("casrn").value = $('select').getSelectedItems(3);
+				document.getElementById("chemical").value = $('select').getSelectedItems(5);
+				document.getElementById("component").value = $('select').getSelectedItems(13);
+					document.getElementById("inputForm").submit();
+/* 			         $.ajax({
 			             url: 'SearchResultsServlet',
 			             dataType: 'json',
 			             data: {
 				             source: $('select').getSelectedItems(1),
 				             casrn : $('select').getSelectedItems(3),
 				             chemical : $('select').getSelectedItems(5),
-				             component : $('select').getSelectedItems(13),
-				             searchById : 'true'
+				             component : $('select').getSelectedItems(13)
 				             },
 			             type: 'post',
 			             cache: false,
@@ -128,8 +132,8 @@
 			             complete: function(request, textStatus)
 			             {
 			            	 window.location = "FoundResults.jsp";
-			             }  */
-			           });
+			             } 
+			           }); */
 				},
 		    labels: {
 		        finish: "Search"
@@ -139,5 +143,14 @@
 	<script type="text/javascript">
 		$('select').DualListBox();
 	</script>
+
+
+	<form action="SearchResultsServlet" role="form" method="post" id="inputForm">
+		<input type="hidden" id="source" name="source" />
+		<input type="hidden" id="casrn" name="casrn" />
+		<input type="hidden" id="chemical" name="chemical" />
+		<input type="hidden" id="component" name="component" />
+		<input type="hidden" id="searchById" name="searchById" value="true" />
+	</form>
 </body>
 </html>

@@ -91,9 +91,11 @@ public class DataManager
 			returnValue.getOrdersOrder().addAll(orders);
 			
 			List<String> components = new ArrayList<String>();
+			List<Integer> intComponents =  new ArrayList<Integer>();
 			if (StringUtils.isNotBlank(component))
 			{
 				components = Arrays.asList(component.split(","));
+				intComponents = Util.convertArrayToInt(components);
 			}
 			
 			for (Orders order : orders)
@@ -107,7 +109,7 @@ public class DataManager
 
 				for (Results result : order.getResultses())
 				{
-					if (StringUtils.isBlank(component) || ((!searchById && components.contains(result.getComponents().getCode())) || (searchById && components.contains(result.getComponents().getId()))))
+					if (StringUtils.isBlank(component) || (!searchById && components.contains(result.getComponents().getCode())) || (searchById && intComponents.contains(result.getComponents().getId())))
 					{
 						if (!returnValue.getComponentsOrder().contains(result.getComponents()))
 						{

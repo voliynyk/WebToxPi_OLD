@@ -111,6 +111,7 @@ eval(getShieldGridFields(obj));
 eval(getShieldGridColumns(obj));
 
 $(document).ready(function () {
+	document.getElementById("grid").style.height = (window.innerHeight - 150)+ "px";
     $("#grid").shieldGrid({
         dataSource: {
             data: obj,
