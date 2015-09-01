@@ -85,7 +85,46 @@ public class OrderDAO extends GenericDAOImpl<Orders, Integer> implements IOrderD
 		return result;
 	}
 	
-	public List<Orders> findOrders(String source, String casrn, String chemical, String weight, String group, String type, String component, String chemicalsource)
+	public List<Orders> findOrdersByIds(String source, String casrn, String chemical, String component)
+	{
+		List<Orders> result = new ArrayList();
+		Criteria criteria = HibernateUtil.getSession().createCriteria(Orders.class, "order");
+
+		if (StringUtils.isNotBlank(source))
+		{
+			criteria.createAlias("order.sources" , "source");
+			criteria.add(Restrictions.in("source.id", source.split(",")));
+		}
+		if (StringUtils.isNotBlank(casrn))
+		{
+			criteria.createAlias("order.casregistrynumbers" , "casregistrynumber");
+			criteria.add(Restrictions.in("casregistrynumber.id", casrn.split(",")));
+		}
+		if (StringUtils.isNotBlank(chemical))
+		{
+			criteria.createAlias("order.chemicals", "chemical");
+			criteria.add(Restrictions.in("chemical.id", chemical.split(",")));
+		}
+		if (StringUtils.isNotBlank(component))
+		{
+			criteria.createAlias("order.resultses", "results");
+			criteria.createAlias("results.components", "component");
+			criteria.add(Restrictions.in("component.id", component.split(",")));
+		}
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		try
+		{
+			result = criteria.list();
+		}
+		catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
+		
+		return result;
+	}
+	
+	public List<Orders> findOrders(String source, String casrn, String chemical, String component, String chemicalsource)
 	{
 		List<Orders> result = new ArrayList();
 		Criteria criteria = HibernateUtil.getSession().createCriteria(Orders.class, "order");

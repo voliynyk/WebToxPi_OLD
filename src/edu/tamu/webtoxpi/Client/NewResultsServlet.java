@@ -51,7 +51,7 @@ public class NewResultsServlet extends HttpServlet
 				DataManager.newResults(casrn, chemicalsource, chemical);
 			
 
-				String outdata = DataManager.getJSON(casrn, chemical, "", "", "", "", "", chemicalsource);
+				String outdata = DataManager.getJSON(casrn, chemical, "", "", chemicalsource, false);
 				request.setAttribute("outdata", outdata);
 
 				this.getServletContext().getRequestDispatcher("/FoundResults.jsp").include(request, response);
@@ -67,7 +67,7 @@ public class NewResultsServlet extends HttpServlet
 				{
 					DataManager.newResults(componentName);
 					
-					String outdata = DataManager.getJSON("", "", "", "", "", "", "", componentName);
+					String outdata = DataManager.getJSON("", "", "", "", componentName, false);
 					request.setAttribute("outdata", outdata);
 
 					this.getServletContext().getRequestDispatcher("/FoundResults.jsp").include(request, response);

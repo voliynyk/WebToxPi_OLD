@@ -112,31 +112,23 @@
 				             source: $('select').getSelectedItems(1),
 				             casrn : $('select').getSelectedItems(3),
 				             chemical : $('select').getSelectedItems(5),
-				             weight : $('select').getSelectedItems(7),
-				             group : $('select').getSelectedItems(9),
-				             type : $('select').getSelectedItems(11),
 				             component : $('select').getSelectedItems(13),
+				             searchById : 'true'
 				             },
-			             type: 'get',
-			             cache: false
-/* 			             success: function(response)
+			             type: 'post',
+			             cache: false,
+			             success: function(response)
 			             {
-			               var infoHTML = '';
-			               $.each(response, function(stock, stockInfo)
-			               {
-			                 infoHTML += '<p>Symbol: ' + stock + "   Company: " + stockInfo.name + '   Price: ' + stockInfo.price + '</p>';
-			               })
-			               $("#stockReport").html(infoHTML);
-			             },
-			             error: function(request, textStatus, errorThrown)
+ 			            	window.location.href = "FoundResults.jsp";
+			             }
+			             /*  		             	error: function(request, textStatus, errorThrown)
 			             {
-			               alert("error:" + textStatus);
+			               //alert("error:" + textStatus);
 			             },
 			             complete: function(request, textStatus)
 			             {
-			               alert("complete" + request.responseText);
-			               alert("complete" + textStatus);
-			             } */
+			            	 window.location = "FoundResults.jsp";
+			             }  */
 			           });
 				},
 		    labels: {

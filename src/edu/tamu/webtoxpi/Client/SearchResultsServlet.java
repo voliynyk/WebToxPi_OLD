@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
+
 import edu.tamu.webtoxpi.Client.DataManager.DataManager;
 
 @WebServlet(urlPatterns = { "/SearchResultsServlet" }, initParams = { @WebInitParam(name = "casrn", value = ""), @WebInitParam(name = "chemical", value = ""), @WebInitParam(name = "component", value = "") })
@@ -27,12 +29,19 @@ public class SearchResultsServlet extends HttpServlet
 		String casrn = request.getParameter("casrn");
 		String chemical = request.getParameter("chemical");
 		
-		String weight = request.getParameter("weight");
+/*		String weight = request.getParameter("weight");
 		String group = request.getParameter("group");
-		String type = request.getParameter("type");
+		String type = request.getParameter("type");*/
 		String component = request.getParameter("component");
+		
+		boolean searchById = false;
+		if (StringUtils.isNotBlank(request.getParameter("searchById")))
+		{
+			searchById = Boolean.parseBoolean(request.getParameter("searchById"));
+		}
 
-		String outdata = DataManager.getJSON(source, casrn, chemical, weight, group, type, component, "");
+
+		String outdata = DataManager.getJSON(source, casrn, chemical, component, "", searchById);
 		request.setAttribute("outdata", outdata);
 
 		this.getServletContext().getRequestDispatcher("/FoundResults.jsp").include(request, response);

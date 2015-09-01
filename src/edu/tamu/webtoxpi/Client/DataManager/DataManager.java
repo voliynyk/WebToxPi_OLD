@@ -68,18 +68,26 @@ public class DataManager
 	
 	public static List<Orders> getOrders(String casrn, String chemical, String chemicalsource, String component)
 	{
-		return DAOManager.getInstance().getOrderDAO().findOrders(casrn, chemical, chemicalsource, component, "", "", "", "");
+		return DAOManager.getInstance().getOrderDAO().findOrders(casrn, chemical, chemicalsource, component, "");
 	}
 	
-	public static OutData getSearchResult(String source, String casrn, String chemical, String weight, String group, String type, String component, String chemicalsource)
+	public static OutData getSearchResult(String source, String casrn, String chemical, String component, String chemicalsource, boolean searchById)
 	{
 		OutData returnValue = new OutData();
 		
 		try
 		{
 			HibernateUtil.beginTransaction();
-
-			List<Orders> orders = DAOManager.getInstance().getOrderDAO().findOrders(source, casrn, chemical, weight, group, type, component, chemicalsource);
+			List<Orders> orders = null;
+			if (searchById)
+			{
+				orders = DAOManager.getInstance().getOrderDAO().findOrdersByIds(source, casrn, chemical, component);
+			}
+			else
+			{
+				orders = DAOManager.getInstance().getOrderDAO().findOrders(source, casrn, chemical, component, chemicalsource);	
+			}
+			
 			returnValue.getOrdersOrder().addAll(orders);
 			
 			List<String> components = new ArrayList<String>();
@@ -99,7 +107,7 @@ public class DataManager
 
 				for (Results result : order.getResultses())
 				{
-					if (StringUtils.isBlank(component) || components.contains(result.getComponents().getCode()))
+					if (StringUtils.isBlank(component) || ((!searchById && components.contains(result.getComponents().getCode())) || (searchById && components.contains(result.getComponents().getId()))))
 					{
 						if (!returnValue.getComponentsOrder().contains(result.getComponents()))
 						{
@@ -127,9 +135,9 @@ public class DataManager
 		return returnValue;
 	}
 	
-	public static String getJSON(String source, String casrn, String chemical, String weight, String group, String type, String component, String chemicalsource)
+	public static String getJSON(String source, String casrn, String chemical, String component, String chemicalsource, boolean searchById)
 	{
-		OutData outData = getSearchResult(source, casrn, chemical, weight, group, type, component, chemicalsource);
+		OutData outData = getSearchResult(source, casrn, chemical, component, chemicalsource, searchById);
 		
 		JSONArray list = new JSONArray();
 		try
