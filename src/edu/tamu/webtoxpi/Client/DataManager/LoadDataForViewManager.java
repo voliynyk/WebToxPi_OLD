@@ -143,7 +143,6 @@ public class LoadDataForViewManager
 			{
 				returnGroups.add(new OutViewGroup(group.getId(), group.getCode(), group.getName()));
 			}
-
 		}
 		finally
 		{

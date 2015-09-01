@@ -340,6 +340,15 @@
             }));
         });
     };
+	
+	$.fn.getSelectedItems = function(index) {
+        var res = '';
+		$(this[index]).find('option').each(function()
+        {
+			res += $(this).val() + ',';	
+        });
+		return res.substr(0, res.length-1); 
+    };
 
     /** Simple delay function that can wrap around an existing function and provides a callback. */
     var delay = (function() {

@@ -23,11 +23,16 @@ public class SearchResultsServlet extends HttpServlet
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
+		String source = request.getParameter("source");
 		String casrn = request.getParameter("casrn");
 		String chemical = request.getParameter("chemical");
+		
+		String weight = request.getParameter("weight");
+		String group = request.getParameter("group");
+		String type = request.getParameter("type");
 		String component = request.getParameter("component");
 
-		String outdata = DataManager.getJSON(casrn, chemical, "", component);
+		String outdata = DataManager.getJSON(source, casrn, chemical, weight, group, type, component, "");
 		request.setAttribute("outdata", outdata);
 
 		this.getServletContext().getRequestDispatcher("/FoundResults.jsp").include(request, response);

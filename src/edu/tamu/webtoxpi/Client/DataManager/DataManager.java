@@ -68,10 +68,10 @@ public class DataManager
 	
 	public static List<Orders> getOrders(String casrn, String chemical, String chemicalsource, String component)
 	{
-		return DAOManager.getInstance().getOrderDAO().findOrders(casrn, chemical, chemicalsource, component);
+		return DAOManager.getInstance().getOrderDAO().findOrders(casrn, chemical, chemicalsource, component, "", "", "", "");
 	}
 	
-	public static OutData getSearchResult(String casrn, String chemical, String chemicalsource, String component)
+	public static OutData getSearchResult(String source, String casrn, String chemical, String weight, String group, String type, String component, String chemicalsource)
 	{
 		OutData returnValue = new OutData();
 		
@@ -79,7 +79,7 @@ public class DataManager
 		{
 			HibernateUtil.beginTransaction();
 
-			List<Orders> orders = DAOManager.getInstance().getOrderDAO().findOrders(casrn, chemical, chemicalsource, component);
+			List<Orders> orders = DAOManager.getInstance().getOrderDAO().findOrders(source, casrn, chemical, weight, group, type, component, chemicalsource);
 			returnValue.getOrdersOrder().addAll(orders);
 			
 			List<String> components = new ArrayList<String>();
@@ -127,9 +127,9 @@ public class DataManager
 		return returnValue;
 	}
 	
-	public static String getJSON(String casrn, String chemical,String chemicalsource, String component)
+	public static String getJSON(String source, String casrn, String chemical, String weight, String group, String type, String component, String chemicalsource)
 	{
-		OutData outData = getSearchResult(casrn, chemical, chemicalsource, component);
+		OutData outData = getSearchResult(source, casrn, chemical, weight, group, type, component, chemicalsource);
 		
 		JSONArray list = new JSONArray();
 		try

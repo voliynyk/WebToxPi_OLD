@@ -15,7 +15,8 @@
 <script type="text/javascript" src="/WebToxPi/External/jquery/jquery.cookie.js"></script>
 <script type="text/javascript" src="/WebToxPi/External/jquerysteps/jquery.steps.min.js"></script>
 
-<script src="/WebToxPi/External/dual-list-box/dual-list-box.min.js"></script>
+<!-- <script src="/WebToxPi/External/dual-list-box/dual-list-box.min.js"></script> -->
+<script src="/WebToxPi/External/dual-list-box/dual-list-box.js"></script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
@@ -25,9 +26,9 @@
 	<div id="example-vertical">
 		<h3>Sources</h3>
 		<section>
-		<div class="container">
-			<div id="dual-list-box-source" class="form-group row">
-				<select multiple="multiple" data-title="Sources" data-source="/WebToxPi/rest/loadsetupdata/getallsources" data-value="id" data-text="code"></select>
+		<div class="container" id="dual-list-box-source2">
+			<div class="form-group row" id="dual-list-box-source1">
+				<select id="dual-list-box-source" multiple="multiple" data-title="Sources" data-source="/WebToxPi/rest/loadsetupdata/getallsources" data-value="id" data-text="code"></select>
 			</div>
 		</div>
 		</section>
@@ -35,8 +36,8 @@
 		<h3>CAS Registry Numbers</h3>
 		<section>
 		<div class="container">
-			<div id="dual-list-box-casrn" class="form-group row">
-				<select multiple="multiple" data-title="CASRNs" data-source="/WebToxPi/rest/loadsetupdata/getallcasrns" data-value="id" data-text="code"></select>
+			<div class="form-group row">
+				<select id="dual-list-box-casrn" multiple="multiple" data-title="CASRNs" data-source="/WebToxPi/rest/loadsetupdata/getallcasrns" data-value="id" data-text="code"></select>
 			</div>
 		</div>
 		</section>
@@ -44,8 +45,8 @@
 		<h3>Chemicals</h3>
 		<section>
 		<div class="container">
-			<div id="dual-list-box-chem" class="form-group row">
-				<select multiple="multiple" data-title="Chemicals" data-source="/WebToxPi/rest/loadsetupdata/getallchemicals" data-value="chemicalId" data-text="chemicalCode"></select>
+			<div class="form-group row">
+				<select id="dual-list-box-chem" multiple="multiple" data-title="Chemicals" data-source="/WebToxPi/rest/loadsetupdata/getallchemicals" data-value="chemicalId" data-text="chemicalCode"></select>
 			</div>
 		</div>
 		</section>
@@ -53,8 +54,8 @@
 		<h3>Weights</h3>
 		<section>
 		<div class="container">
-			<div id="dual-list-box-weight" class="form-group row">
-				<select multiple="multiple" data-title="Weights" data-source="/WebToxPi/rest/loadsetupdata/getallweights" data-value="id" data-text="code"></select>
+			<div class="form-group row">
+				<select id="dual-list-box-weight" multiple="multiple" data-title="Weights" data-source="/WebToxPi/rest/loadsetupdata/getallweights" data-value="id" data-text="code"></select>
 			</div>
 		</div>
 		</section>
@@ -62,8 +63,8 @@
 		<h3>Groups</h3>
 		<section>
 		<div class="container">
-			<div id="dual-list-box-groups" class="form-group row">
-				<select multiple="multiple" data-title="Groups" data-source="/WebToxPi/rest/loadsetupdata/getallgroups" data-value="id" data-text="code"></select>
+			<div class="form-group row">
+				<select id="dual-list-box-groups" multiple="multiple" data-title="Groups" data-source="/WebToxPi/rest/loadsetupdata/getallgroups" data-value="id" data-text="code"></select>
 			</div>
 		</div>
 		</section>
@@ -71,8 +72,8 @@
 		<h3>Types</h3>
 		<section>
 		<div class="container">
-			<div id="dual-list-box-types" class="form-group row">
-				<select multiple="multiple" data-title="Types" data-source="/WebToxPi/rest/loadsetupdata/getalltypes" data-value="id" data-text="code"></select>
+			<div class="form-group row">
+				<select id="dual-list-box-types" multiple="multiple" data-title="Types" data-source="/WebToxPi/rest/loadsetupdata/getalltypes" data-value="id" data-text="code"></select>
 			</div>
 		</div>
 		</section>
@@ -80,8 +81,8 @@
 		<h3>Components</h3>
 		<section>
 		<div class="container">
-			<div id="dual-list-box-component" class="form-group row">
-				<select multiple="multiple" data-title="Components" data-source="/WebToxPi/rest/loadsetupdata/getallcomponents" data-value="componentId" data-text="componentCode"></select>
+			<div class="form-group row">
+				<select id="dual-list-box-component" multiple="multiple" data-title="Components" data-source="/WebToxPi/rest/loadsetupdata/getallcomponents" data-value="componentId" data-text="componentCode"></select>
 			</div>
 		</div>
 		</section>
@@ -92,8 +93,55 @@
 		$("#example-vertical").steps({
 			headerTag : "h3",
 			bodyTag : "section",
-			transitionEffect : "slideLeft"
-			,stepsOrientation : "vertical"
+			transitionEffect : "slideLeft",
+			stepsOrientation : "vertical",
+			onStepChanged:
+				function (event, currentIndex, priorIndex)
+				{
+					var ddd = $('select').getSelectedItems(1);
+					var ddd1 = $('select');
+
+				}, 
+			onFinished:
+				function (event, currentIndex)
+				{
+			         $.ajax({
+			             url: 'SearchResultsServlet',
+			             dataType: 'json',
+			             data: {
+				             source: $('select').getSelectedItems(1),
+				             casrn : $('select').getSelectedItems(3),
+				             chemical : $('select').getSelectedItems(5),
+				             weight : $('select').getSelectedItems(7),
+				             group : $('select').getSelectedItems(9),
+				             type : $('select').getSelectedItems(11),
+				             component : $('select').getSelectedItems(13),
+				             },
+			             type: 'get',
+			             cache: false
+/* 			             success: function(response)
+			             {
+			               var infoHTML = '';
+			               $.each(response, function(stock, stockInfo)
+			               {
+			                 infoHTML += '<p>Symbol: ' + stock + "   Company: " + stockInfo.name + '   Price: ' + stockInfo.price + '</p>';
+			               })
+			               $("#stockReport").html(infoHTML);
+			             },
+			             error: function(request, textStatus, errorThrown)
+			             {
+			               alert("error:" + textStatus);
+			             },
+			             complete: function(request, textStatus)
+			             {
+			               alert("complete" + request.responseText);
+			               alert("complete" + textStatus);
+			             } */
+			           });
+				},
+		    labels: {
+		        finish: "Search"
+		    }
 		});
 	</script>
 	<script type="text/javascript">

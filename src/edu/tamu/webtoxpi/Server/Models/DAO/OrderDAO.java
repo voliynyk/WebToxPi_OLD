@@ -85,7 +85,7 @@ public class OrderDAO extends GenericDAOImpl<Orders, Integer> implements IOrderD
 		return result;
 	}
 	
-	public List<Orders> findOrders(String casrn, String chemical, String chemicalsource, String component)
+	public List<Orders> findOrders(String source, String casrn, String chemical, String weight, String group, String type, String component, String chemicalsource)
 	{
 		List<Orders> result = new ArrayList();
 		Criteria criteria = HibernateUtil.getSession().createCriteria(Orders.class, "order");
