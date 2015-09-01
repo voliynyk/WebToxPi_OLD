@@ -119,16 +119,95 @@
 		      
 		    </div>
 		  </div>
-	            
-	            <a href="TempPage.html" class="btn btn-theme">Export</a>
+		 
+<!-- 	              <a href="TempPage.html" class="btn btn-theme">Export</a> -->
+	            <a href='#' class='btn btn-theme'  onclick="return theFunction();">Add/Edit Results</a>
             </p>
 <!-- <input type="button" id="OpenPopupButton" value="Open Modal Popup" onclick="openPopUpWithSize('EnterResults.jsp', 'Simple Modal Popup Example', 700, 1500);" /> -->
           </div>
+        
         </div>
         
       </div>
     </div>
-   
+      <div id='mask' class='close_modal'></div>  
+  
+<div id='first_window'  class='modal_window'></div>  
+
+<script type="text/javascript">
+
+    $(document).ready(function(){  
+      
+    //get the height and width of the page  
+     var window_width = $(window).width();  
+     var window_height = $(window).height();  
+      
+    //vertical and horizontal centering of modal window(s)  
+    /*we will use each function so if we have more then 1 
+    modal window we center them all*/  
+    $('.modal_window').each(function(){  
+      
+        //get the height and width of the modal  
+          var modal_height = $(this).outerHeight();  
+          var modal_width = $(this).outerWidth();  
+      
+         //calculate top and left offset needed for centering  
+          var top = (window_height-modal_height)/2;  
+         var left = (window_width-modal_width)/2;  
+      
+//         //apply new top and left css values  
+          $(this).css({'top' : top , 'left' : left});  
+      
+    });  
+      
+        $('.activate_modal').click(function(){  
+      
+              //get the id of the modal window stored in the name of the activating element  
+              var modal_id = 'newResult';  
+      
+              //use the function to show it  
+              show_modal(modal_id);  
+      
+        });  
+      
+        $('.close_modal').click(function(){  
+      
+            //use the function to close it  
+            close_modal();  
+      
+        });  
+      
+    });  
+      
+    function close_modal(){      
+        //hide the mask  
+        $('#mask').fadeOut(500);  
+        //hide modal window(s)  
+        $('.modal_window').fadeOut(500);        
+    }  
+    function show_modal(modal_id){  
+    	 //set display to block and opacity to 0 so we can use fadeTo  
+//         $('#mask').css({ 'display' : 'block', opacity : 0});  
+    	//fade in the mask to opacity 0.8  
+        $('#mask').fadeTo(500,0.90);  
+      
+        $('#'+modal_id).fadeIn(500);          
+        $('#'+modal_id)
+        .html('<object width="1400" height="650" data="EnterResults.jsp"/>'); 
+    
+    }  
+</script>
+   <script type="text/javascript">
+    function theFunction () {
+    	//get the id of the modal window stored in the name of the activating element  
+        var modal_id = 'first_window';  
+
+        //use the function to show it  
+        show_modal(modal_id);
+$("#banner").load("TempPage.html");
+        return true;
+    }
+</script>
     <footer>
       <div class="footer text-center">
         <p class="4">&copy; Copyright 2015</p>
