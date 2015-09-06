@@ -78,7 +78,7 @@
 	        <a href="ViewResults.jsp" class="btn btn-theme">View Results</a> 
 	            
 <!-- 	    <a href="TempPage.html" class="btn btn-theme">Export</a> -->
-	            <a href='#' class='btn btn-theme'  onclick="return theFunction();">Add/Edit Results</a>
+	            <a href='#' class='btn btn-theme'  onclick="return newResults();">Add/Edit Results</a>
             </p>
 <!-- <input type="button" id="OpenPopupButton" value="Open Modal Popup" onclick="openPopUpWithSize('EnterResults.jsp', 'Simple Modal Popup Example', 700, 1500);" /> -->
           </div>
@@ -87,8 +87,8 @@
         
       </div>
     </div>
-      <div id='mask' class='close_modal'></div>  
-  
+       
+ <div id='mask' class='close_modal'> </div> 
 <div id='first_window'  class='modal_window'></div>  
 
 <script type="text/javascript">
@@ -145,8 +145,8 @@
     function show_modal(modal_id){  
     	 //set display to block and opacity to 0 so we can use fadeTo  
 //         $('#mask').css({ 'display' : 'block', opacity : 0});  
-    	//fade in the mask to opacity 0.8  
-        $('#mask').fadeTo(500,0.90);  
+    	//fade in the mask to opacity 0.9  
+        $('#mask').fadeTo(500,0.92);  
       
         $('#'+modal_id).fadeIn(500);          
         $('#'+modal_id)
@@ -155,7 +155,7 @@
     }  
 </script>
    <script type="text/javascript">
-    function theFunction () {
+    function newResults () {
     	//get the id of the modal window stored in the name of the activating element  
         var modal_id = 'first_window';  
 
